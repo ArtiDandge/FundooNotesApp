@@ -1,21 +1,41 @@
-﻿using FundooModels;
-using FundooRepository.Context;
-using FundooRepository.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UserRegistration.cs" company="Bridgelabz">
+//   Copyright © 2021 Company="BridgeLabz"
+// </copyright>
+// <creator name="Dandge Arti Subhash"/>
+// ----------------------------------------------------------------------------------------------------------
 
 namespace FundooRepository
 {
-    public class UserRegistration: IUserRegistration
+    using System.Linq;
+    using FundooModels;
+    using FundooRepository.Context;
+    using FundooRepository.Interfaces;
+  
+    /// <summary>
+    /// UserRegistration class implements IUserRegistration interface
+    /// </summary>
+    public class UserRegistration : IUserRegistration
     {
+        /// <summary>
+        /// Field userContext of type UserContext
+        /// </summary>
         private readonly UserContext userContext;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserRegistration" /> class.
+        /// </summary>
+        /// <param name="userContext">userContext Parameter</param>
         public UserRegistration(UserContext userContext)
         {
             this.userContext = userContext;
         }
 
+        /// <summary>
+        /// Method to Add new User to the Database
+        /// </summary>
+        /// <param name="user">user parameter for this method</param>
+        /// <returns>string message</returns>
         public string AddNewUser(RegistrationModel user)
         {
             this.userContext.Users.Add(user);
@@ -24,20 +44,26 @@ namespace FundooRepository
             return message;
         }
 
+        /// <summary>
+        /// Method for Login
+        /// </summary>
+        /// <param name="email">user email parameter </param>
+        /// <param name="password">user password parameter</param>
+        /// <returns>string message</returns>
         public string Login(string email, string password)
         {
             string message;
-            var Login = this.userContext.Users
+            var login = this.userContext.Users
                         .Where(x => x.UserEmail == email && x.UserPassword == password).SingleOrDefault();
-            if (Login != null)
+            if (login != null)
             {
                 message = "LOGIN SUCCESS";
             }
             else
             {
                 message = "LOGIN UNSUCCESSFUL";
-
             }
+
             return message;
         }
     }
