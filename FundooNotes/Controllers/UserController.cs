@@ -9,6 +9,7 @@ namespace FundooNotes.Controllers
 {
     using FundooManager.Interfaces;
     using FundooModels;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -57,6 +58,7 @@ namespace FundooNotes.Controllers
         /// <returns>Response from API</returns>
         [HttpPost]
         [Route("api/Login")]
+        [Authorize]
         public IActionResult Login([FromBody] LoginModel login)
         {
             var result = this.manager.Login(login.UserEmail, login.UserPassword);

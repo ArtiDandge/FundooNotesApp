@@ -9,6 +9,7 @@ namespace FundooNotes
 {
     using FundooManager.Interfaces;
     using FundooManager.Manager;
+    using FundooNotes.Controllers;
     using FundooRepository;
     using FundooRepository.Context;
     using FundooRepository.Interfaces;
@@ -18,6 +19,8 @@ namespace FundooNotes
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.IdentityModel.Tokens;
+    using System;
 
     /// <summary>
     /// Startup. cs class. This class is an entry point for asp.net project
@@ -48,6 +51,24 @@ namespace FundooNotes
             services.AddDbContext<UserContext>(options => options.UseMySql(this.Configuration["Data:ConnectionStrings:DefaultConnection"]));
             services.AddTransient<IUserRegistration, UserRegistration>();
             services.AddTransient<IUserManager, UserManager>();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "JwtBearer";
+                options.DefaultChallengeScheme = "JwtBearer";
+            })
+            .AddJwtBearer("JwtBearer", jwtOptions =>
+            {
+                jwtOptions.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    IssuerSigningKey = TokenController.SIGNING_KEY,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(5)
+                };
+            });
+
         }
 
         /// <summary>
@@ -75,6 +96,8 @@ namespace FundooNotes
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
