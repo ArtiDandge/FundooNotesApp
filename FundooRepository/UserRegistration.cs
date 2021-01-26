@@ -10,7 +10,7 @@ namespace FundooRepository
 {
     public class UserRegistration: IUserRegistration
     {
-        UserContext userContext;
+        private readonly UserContext userContext;
         public UserRegistration(UserContext userContext)
         {
             this.userContext = userContext;
