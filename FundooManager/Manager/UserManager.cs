@@ -21,5 +21,11 @@ namespace FundooManager.Manager
             string message = this.userRegistration.AddNewUser(user);
             return message;
         }
+
+        public string Login(string email, string password)
+        {
+            string message = this.userRegistration.Login(email, password);
+            return message;
+        }
     }
 }

@@ -24,11 +24,26 @@ namespace FundooNotes.Controllers
             var result = this.manager.AddNewUser(user);
             if (result.Equals("SUCCESS"))
             {
-                return this.Ok(result);
+                return this.Ok(new { success = true, Message = "New User Added Successfully", Data = result });
             }
             else
             {
-                return this.BadRequest();
+                return this.BadRequest(new { success = false, Message = "Failed to Add New User to Data to Database" });
+            }
+        }
+
+        [HttpPost]
+        [Route("api/Login")]
+        public IActionResult Login([FromBody] RegistrationModel user)
+        {
+            var result = this.manager.Login(user.UserEmail, user.UserPassword);
+            if (result.Equals("LOGIN SUCCESS"))
+            {
+                return this.Ok(new { success = true, Message = "Login Successfully", Data = result });
+            }
+            else
+            {
+                return this.BadRequest(new { success = false, Message = "Failed to Login" });
             }
         }
     }

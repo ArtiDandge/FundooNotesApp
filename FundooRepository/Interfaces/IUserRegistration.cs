@@ -8,5 +8,6 @@ namespace FundooRepository.Interfaces
     public interface IUserRegistration
     {
         public string AddNewUser(RegistrationModel user);
+        public string Login(string email, string password);
     }
 }
