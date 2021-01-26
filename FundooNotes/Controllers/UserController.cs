@@ -34,9 +34,9 @@ namespace FundooNotes.Controllers
 
         [HttpPost]
         [Route("api/Login")]
-        public IActionResult Login([FromBody] RegistrationModel user)
+        public IActionResult Login([FromBody] LoginModel login)
         {
-            var result = this.manager.Login(user.UserEmail, user.UserPassword);
+            var result = this.manager.Login(login.UserEmail, login.UserPassword);
             if (result.Equals("LOGIN SUCCESS"))
             {
                 return this.Ok(new { success = true, Message = "Login Successfully", Data = result });
