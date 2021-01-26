@@ -5,22 +5,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using FundooRepository.Interfaces;
 using FundooModels;
+using FundooManager.Interfaces;
 
 namespace FundooNotes.Controllers
 {
     public class UserController : ControllerBase
     {
-        private readonly IUserRegistration userContext;
-        public UserController(IUserRegistration userContext)
+        private readonly IUserManager manager;
+        public UserController(IUserManager manager)
         {
-            this.userContext = userContext;
+            this.manager = manager;
         }
 
         [HttpPost]
         [Route("api/newUser")]
         public IActionResult UserRegistration([FromBody]RegistrationModel user)
         {
-            var result = this.userContext.AddNewUser(user);
+            var result = this.manager.AddNewUser(user);
             if (result.Equals("SUCCESS"))
             {
                 return this.Ok(result);

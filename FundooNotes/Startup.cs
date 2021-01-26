@@ -12,6 +12,8 @@ using FundooRepository;
 using FundooRepository.Context;
 using Microsoft.EntityFrameworkCore;
 using FundooRepository.Interfaces;
+using FundooManager.Interfaces;
+using FundooManager.Manager;
 
 namespace FundooNotes
 {
@@ -31,6 +33,7 @@ namespace FundooNotes
             services.AddDbContext<UserContext>
             (options => options.UseMySql(Configuration["Data:ConnectionStrings:DefaultConnection"]));
             services.AddTransient<IUserRegistration, UserRegistration>();
+            services.AddTransient<IUserManager, UserManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
