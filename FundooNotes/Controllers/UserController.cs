@@ -120,11 +120,11 @@ namespace FundooNotes.Controllers
             var result = this.manager.ForgotPassword(email);
             if (result.Equals("Mail Sent Successfully !"))
             {
-                return this.Ok(result);
+                return this.Ok(new { success = true, Message = "Link has sent to the given email address to reset the password", Data = result });
             }
             else
             {
-                return this.BadRequest();
+                return this.BadRequest(new { success = false, Message = "Unable to sent link to given email address. This Email doesn't exist in database." });
             }
         }
 
@@ -144,7 +144,7 @@ namespace FundooNotes.Controllers
             }
             else
             {
-                return this.BadRequest(new { success = false, Message = "Failed to Reset Password. This Email does not exis in database." });
+                return this.BadRequest(new { success = false, Message = "Failed to Reset Password. This Email doesn't exist in database." });
             }
         }
     }

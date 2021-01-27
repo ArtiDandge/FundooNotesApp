@@ -78,7 +78,7 @@ namespace FundooRepository
         /// <returns>string message</returns>
         public string ForgotPassword(string email)
         {
-            var url = "https://localhost:44340/ResetPassword.html";
+            var url = "Click on following link to reset your credentials for Fundoonotes App: https://localhost:44340/ResetPassword.html";
             MessageQueue msmqQueue = new MessageQueue();
             if (MessageQueue.Exists(@".\Private$\MyQueue"))
             {
