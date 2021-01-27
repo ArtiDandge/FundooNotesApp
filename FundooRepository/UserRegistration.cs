@@ -10,6 +10,7 @@ namespace FundooRepository
     using System.Linq;
     using System.Net;
     using System.Net.Mail;
+    using Experimental.System.Messaging;
     using FundooModels;
     using FundooRepository.Context;
     using FundooRepository.Interfaces;
@@ -76,13 +77,34 @@ namespace FundooRepository
         /// <returns>string message</returns>
         public string ForgotPassword(string email)
         {
+            var url = "https://localhost:44340/ResetPassword.html";
+            MessageQueue msmqQueue = new MessageQueue();
+            if (MessageQueue.Exists(@".\Private$\MyQueue"))
+            {
+                msmqQueue = new MessageQueue(@".\Private$\MyQueue");
+            }
+            else
+            {
+                msmqQueue = MessageQueue.Create(@".\Private$\MyQueue");
+
+            }
+            Message message = new Message();
+            message.Formatter = new BinaryMessageFormatter();
+            message.Body = url;
+            msmqQueue.Label = "url link";
+            msmqQueue.Send(message);
+            var reciever = new MessageQueue(@".\Private$\MyQueue");
+            var recieving = reciever.Receive();
+            recieving.Formatter = new BinaryMessageFormatter();
+            string linkToBeSend = recieving.Body.ToString();
+
             string user;
-            string mailSubject = "Your FundooNotes App Credentials";
+            string mailSubject = "Link to reset your FundooNotes App Credentials";
             var userCheck = this.userContext.Users
                             .SingleOrDefault(x => x.UserEmail == email);
             if (userCheck != null)
             {
-                user = userCheck.UserPassword;
+                user = linkToBeSend;
                 using (MailMessage mailMessage = new MailMessage("dartis2512@gmail.com", email))
                 {
                     mailMessage.Subject = mailSubject;
