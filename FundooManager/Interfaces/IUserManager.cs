@@ -38,5 +38,14 @@ namespace FundooManager.Interfaces
         /// <param name="email">user string</param>
         /// <returns>string message</returns>
         public string ForgotPassword(string email);
+
+        /// <summary>
+        /// Reset Password Method Declaration
+        /// </summary>
+        /// <param name="email">user string</param>
+        /// <param name="password">user password</param>
+        /// <param name="confirmPassword">confirm Password</param>
+        /// <returns>string message</returns>
+        public string ResetPassword(ResetPasswordModel resetPassword);
     }
 }

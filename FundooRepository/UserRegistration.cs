@@ -14,7 +14,8 @@ namespace FundooRepository
     using FundooModels;
     using FundooRepository.Context;
     using FundooRepository.Interfaces;
-  
+    using Microsoft.EntityFrameworkCore;
+
     /// <summary>
     /// UserRegistration class implements IUserRegistration interface
     /// </summary>
@@ -124,7 +125,28 @@ namespace FundooRepository
             {
                 return "Error while sending mail !";
             }
+        }
 
+        /// <summary>
+        /// Method to reset old user password with new one.
+        /// </summary>
+        /// <param name="resetPassword">variable of type ResetPasswordModel</param>
+        /// <returns>string message</returns>
+        public string ResetPassword(ResetPasswordModel resetPassword)
+        {
+            var userPassword = this.userContext.Users
+                            .SingleOrDefault(x => x.UserEmail == resetPassword.UserEmail);
+            if (userPassword != null)
+            {
+                userPassword.UserPassword = resetPassword.UserPassword;
+                userContext.Entry(userPassword).State = EntityState.Modified;
+                userContext.SaveChanges();
+                return "Password Reset Successfull ! ";
+            }
+            else
+            {
+                return "Error While Resetting Password !";
+            }
         }
     }
 }

@@ -127,5 +127,25 @@ namespace FundooNotes.Controllers
                 return this.BadRequest();
             }
         }
+
+        /// <summary>
+        /// Controller method for Reset password method invocation
+        /// </summary>
+        /// <param name="resetPassword"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("api/ResetPassword")]
+        public IActionResult ResetPassword(ResetPasswordModel resetPassword)
+        {
+            var result = this.manager.ResetPassword(resetPassword);
+            if (result.Equals("Password Reset Successfull ! "))
+            {
+                return this.Ok(new { success = true, Message = "Password Reset Successfully", Data = result });
+            }
+            else
+            {
+                return this.BadRequest(new { success = false, Message = "Failed to Reset Password. This Email does not exis in database." });
+            }
+        }
     }
 }
