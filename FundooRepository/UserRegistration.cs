@@ -87,7 +87,6 @@ namespace FundooRepository
             else
             {
                 msmqQueue = MessageQueue.Create(@".\Private$\MyQueue");
-
             }
             Message message = new Message();
             message.Formatter = new BinaryMessageFormatter();
