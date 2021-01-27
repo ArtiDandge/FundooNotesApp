@@ -55,5 +55,16 @@ namespace FundooManager.Manager
             string message = this.userRegistration.Login(email, password);
             return message;
         }
+
+        /// <summary>
+        /// Forgot password Method 
+        /// </summary>
+        /// <param name="email">user email</param>
+        /// <returns>string message</returns>
+        public string ForgotPassword(string email)
+        {
+            string message = this.userRegistration.ForgotPassword(email);
+            return message;
+        }
     }
 }

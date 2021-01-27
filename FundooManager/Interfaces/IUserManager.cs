@@ -31,5 +31,12 @@ namespace FundooManager.Interfaces
         /// <param name="password">user password parameter</param>
         /// <returns>string message</returns>
         public string Login(string email, string password);
+
+        /// <summary>
+        /// Forgot password method Declaration
+        /// </summary>
+        /// <param name="email">user string</param>
+        /// <returns>string message</returns>
+        public string ForgotPassword(string email);
     }
 }

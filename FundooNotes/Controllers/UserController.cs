@@ -7,17 +7,17 @@
 
 namespace FundooNotes.Controllers
 {
-    using FundooManager.Interfaces;
-    using FundooModels;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.IdentityModel.Tokens;
     using System;
     using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Security.Claims;
     using System.Text;
+    using FundooManager.Interfaces;
+    using FundooModels;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
     /// UserController Class 
@@ -25,11 +25,19 @@ namespace FundooNotes.Controllers
     public class UserController : ControllerBase
     {
         /// <summary>
+        /// SINGING KEY for SECRET KEY 
+        /// </summary>
+        public static readonly SymmetricSecurityKey SIGNING_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(UserController.SECRET_KEY));
+
+        /// <summary>
+        /// SECRETE KEY string
+        /// </summary>
+        private const string SECRET_KEY = "This is Secret key for valid user authentication";
+
+        /// <summary>
         /// Field 'manager' of type IUserManager
         /// </summary>
         private readonly IUserManager manager;
-        private const string SECRET_KEY = "This is Secret key for valid user authentication";
-        public static readonly SymmetricSecurityKey SIGNING_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(UserController.SECRET_KEY));
        
         /// <summary>
         /// Initializes a new instance of the <see cref="UserController" /> class.
@@ -72,7 +80,7 @@ namespace FundooNotes.Controllers
             var result = this.manager.Login(login.UserEmail, login.UserPassword);
             if (result.Equals("LOGIN SUCCESS"))
             {
-                string tokenString = GenerateToken(login.UserEmail);
+                string tokenString = this.GenerateToken(login.UserEmail);
                 return this.Ok(new { success = true, Message = "Login Successfully", Data = result, tokenString });
             }
             else
@@ -81,6 +89,11 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Method to generate token for given User Email
+        /// </summary>
+        /// <param name="UserEmail">User Email address</param>
+        /// <returns>returns string JWT token</returns>
         private string GenerateToken(string UserEmail)
         {
             var token = new JwtSecurityToken(
@@ -93,6 +106,26 @@ namespace FundooNotes.Controllers
                 signingCredentials: new SigningCredentials(SIGNING_KEY, SecurityAlgorithms.HmacSha256)
                 );
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        /// <summary>
+        /// Controller method for Forgot password method invocation
+        /// </summary>
+        /// <param name="email">user email</param>
+        /// <returns>Response from API</returns>
+        [HttpPost]
+        [Route("api/ForgotPassword")]
+        public IActionResult ForgotPassword(string email)
+        {
+            var result = this.manager.ForgotPassword(email);
+            if (result.Equals("Mail Sent Successfully !"))
+            {
+                return this.Ok(result);
+            }
+            else
+            {
+                return this.BadRequest();
+            }
         }
     }
 }

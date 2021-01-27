@@ -20,6 +20,7 @@ namespace FundooNotes
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.IdentityModel.Tokens;
+    using Microsoft.OpenApi.Models;
     using System;
 
     /// <summary>
@@ -68,7 +69,10 @@ namespace FundooNotes
                     ClockSkew = TimeSpan.FromMinutes(5)
                 };
             });
-
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "My Demo API", Version = "1.0" });
+            });
         }
 
         /// <summary>
@@ -104,6 +108,12 @@ namespace FundooNotes
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "My Demo API (V 1.0)");
             });
         }
     }

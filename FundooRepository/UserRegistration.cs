@@ -66,5 +66,26 @@ namespace FundooRepository
 
             return message;
         }
+
+        /// <summary>
+        /// Method to Implement Forgot password functionality.
+        /// </summary>
+        /// <param name="email">user email</param>
+        /// <returns>string message</returns>
+        public string ForgotPassword(string email)
+        {
+            string user;
+            var userCheck = this.userContext.Users
+                            .SingleOrDefault(x => x.UserEmail == email);
+            if (userCheck != null)
+            {
+                user = userCheck.UserPassword;
+                return "Link for Password reset sent Successfully on given mail !";
+            }
+            else
+            {
+                return "Error while sending mail !";
+            }
+        }
     }
 }
