@@ -8,6 +8,8 @@
 namespace FundooRepository
 {
     using System.Linq;
+    using System.Net;
+    using System.Net.Mail;
     using FundooModels;
     using FundooRepository.Context;
     using FundooRepository.Interfaces;
@@ -75,17 +77,32 @@ namespace FundooRepository
         public string ForgotPassword(string email)
         {
             string user;
+            string mailSubject = "Your FundooNotes App Credentials";
             var userCheck = this.userContext.Users
                             .SingleOrDefault(x => x.UserEmail == email);
             if (userCheck != null)
             {
                 user = userCheck.UserPassword;
-                return "Link for Password reset sent Successfully on given mail !";
+                using (MailMessage mailMessage = new MailMessage("dartis2512@gmail.com", email))
+                {
+                    mailMessage.Subject = mailSubject;
+                    mailMessage.Body = user;
+                    mailMessage.IsBodyHtml = true;
+                    SmtpClient Smtp = new SmtpClient();
+                    Smtp.Host = "smtp.gmail.com";
+                    Smtp.EnableSsl = true;
+                    Smtp.UseDefaultCredentials = false;
+                    Smtp.Credentials = new NetworkCredential("dartis2512@gmail.com", "Arti@1234567890");
+                    Smtp.Port = 587;
+                    Smtp.Send(mailMessage);
+                }
+                return "Mail Sent Successfully !";
             }
             else
             {
                 return "Error while sending mail !";
             }
+
         }
     }
 }
