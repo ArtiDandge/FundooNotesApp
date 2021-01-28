@@ -17,6 +17,7 @@ namespace FundooRepository
     using System.Text;
     using Experimental.System.Messaging;
     using FundooModels;
+    using FundooMSMQ;
     using FundooRepository.Context;
     using FundooRepository.Interfaces;
     using Microsoft.EntityFrameworkCore;
@@ -133,33 +134,16 @@ namespace FundooRepository
         /// <returns>string message</returns>
         public string ForgotPassword(string email)
         {
-            var url = "Click on following link to reset your credentials for Fundoonotes App: https://localhost:44340/ResetPassword.html";
-            MessageQueue msmqQueue = new MessageQueue();
-            if (MessageQueue.Exists(@".\Private$\MyQueue"))
-            {
-                msmqQueue = new MessageQueue(@".\Private$\MyQueue");
-            }
-            else
-            {
-                msmqQueue = MessageQueue.Create(@".\Private$\MyQueue");
-            }
-            Message message = new Message();
-            message.Formatter = new BinaryMessageFormatter();
-            message.Body = url;
-            msmqQueue.Label = "url link";
-            msmqQueue.Send(message);
-            var reciever = new MessageQueue(@".\Private$\MyQueue");
-            var recieving = reciever.Receive();
-            recieving.Formatter = new BinaryMessageFormatter();
-            string linkToBeSend = recieving.Body.ToString();
-
             string user;
             string mailSubject = "Link to reset your FundooNotes App Credentials";
-            var userCheck = this.userContext.Users
-                            .SingleOrDefault(x => x.UserEmail == email);
+            var userCheck = this.userContext.Users.SingleOrDefault(x => x.UserEmail == email);
             if (userCheck != null)
             {
-                user = linkToBeSend;
+                Sender sender = new Sender();
+                sender.SendMessage();
+                Receiver receiver = new Receiver();
+                var messageBody = receiver.receiverMessage();
+                user = messageBody;
                 using (MailMessage mailMessage = new MailMessage("dartis2512@gmail.com", email))
                 {
                     mailMessage.Subject = mailSubject;
