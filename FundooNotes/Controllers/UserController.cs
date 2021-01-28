@@ -25,16 +25,6 @@ namespace FundooNotes.Controllers
     public class UserController : ControllerBase
     {
         /// <summary>
-        /// SINGING KEY for SECRET KEY 
-        /// </summary>
-        public static readonly SymmetricSecurityKey SIGNING_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(UserController.SECRET_KEY));
-
-        /// <summary>
-        /// SECRETE KEY string
-        /// </summary>
-        private const string SECRET_KEY = "This is Secret key for valid user authentication";
-
-        /// <summary>
         /// Field 'manager' of type IUserManager
         /// </summary>
         private readonly IUserManager manager;
@@ -80,32 +70,13 @@ namespace FundooNotes.Controllers
             var result = this.manager.Login(login.UserEmail, login.UserPassword);
             if (result.Equals("LOGIN SUCCESS"))
             {
-                string tokenString = this.GenerateToken(login.UserEmail);
+                string tokenString = this.manager.GenerateToken(login.UserEmail);
                 return this.Ok(new { success = true, Message = "Login Successfully", Data = result, tokenString });
             }
             else
             {
                 return this.BadRequest(new { success = false, Message = "Failed to Login. Email Id or Password is mismatched." });
             }
-        }
-
-        /// <summary>
-        /// Method to generate token for given User Email
-        /// </summary>
-        /// <param name="UserEmail">User Email address</param>
-        /// <returns>returns string JWT token</returns>
-        private string GenerateToken(string UserEmail)
-        {
-            var token = new JwtSecurityToken(
-                claims: new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, UserEmail)
-                },
-                notBefore: new DateTimeOffset(DateTime.Now).DateTime,
-                expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
-                signingCredentials: new SigningCredentials(SIGNING_KEY, SecurityAlgorithms.HmacSha256)
-                );
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         /// <summary>

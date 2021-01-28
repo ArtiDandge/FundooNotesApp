@@ -7,20 +7,35 @@
 
 namespace FundooRepository
 {
+    using System;
+    using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Net;
     using System.Net.Mail;
+    using System.Security.Claims;
+    using System.Text;
     using Experimental.System.Messaging;
     using FundooModels;
     using FundooRepository.Context;
     using FundooRepository.Interfaces;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
     /// UserRegistration class implements IUserRegistration interface
     /// </summary>
     public class UserRegistration : IUserRegistration
     {
+        /// <summary>
+        /// SINGING KEY for SECRET KEY 
+        /// </summary>
+        public static readonly SymmetricSecurityKey SIGNING_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(UserRegistration.SECRET_KEY));
+
+        /// <summary>
+        /// SECRETE KEY string
+        /// </summary>
+        private const string SECRET_KEY = "This is Secret key for valid user authentication";
+
         /// <summary>
         /// Field userContext of type UserContext
         /// </summary>
@@ -72,7 +87,26 @@ namespace FundooRepository
         }
 
         /// <summary>
-        /// Method to Implement Forgot password functionality.
+        /// Method to generate token for given User Email
+        /// </summary>
+        /// <param name="UserEmail">User Email address</param>
+        /// <returns>returns string JWT token</returns>
+        public string GenerateToken(string UserEmail)
+        {
+            var token = new JwtSecurityToken(
+                claims: new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, UserEmail)
+                },
+                notBefore: new DateTimeOffset(DateTime.Now).DateTime,
+                expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
+                signingCredentials: new SigningCredentials(SIGNING_KEY, SecurityAlgorithms.HmacSha256)
+                );
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        /// <summary>
+        /// Method to Implement Forgot password functionality using SMTP and MSMQ .
         /// </summary>
         /// <param name="email">user email</param>
         /// <returns>string message</returns>

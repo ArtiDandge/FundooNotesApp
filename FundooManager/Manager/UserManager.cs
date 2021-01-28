@@ -77,5 +77,11 @@ namespace FundooManager.Manager
             string message = this.userRegistration.ResetPassword(resetPassword);
             return message;
         }
+
+        public string GenerateToken(string UserEmail)
+        {
+            string token = this.userRegistration.GenerateToken(UserEmail);
+            return token;
+        }
     }
 }

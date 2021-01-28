@@ -61,7 +61,7 @@ namespace FundooNotes
             {
                 jwtOptions.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    IssuerSigningKey = UserController.SIGNING_KEY,
+                    IssuerSigningKey = UserRegistration.SIGNING_KEY,
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateIssuerSigningKey = true,
