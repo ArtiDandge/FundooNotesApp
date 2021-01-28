@@ -52,6 +52,8 @@ namespace FundooNotes
             services.AddDbContext<UserContext>(options => options.UseMySql(this.Configuration["Data:ConnectionStrings:DefaultConnection"]));
             services.AddTransient<IUserRegistration, UserRegistration>();
             services.AddTransient<IUserManager, UserManager>();
+            services.AddTransient<INotes, NotesRepository>();
+            services.AddTransient<INotesManager, NotesManager>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = "JwtBearer";
