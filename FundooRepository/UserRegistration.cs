@@ -13,6 +13,7 @@ namespace FundooRepository
     using System.Net;
     using System.Net.Mail;
     using System.Security.Claims;
+    using System.Security.Cryptography;
     using System.Text;
     using Experimental.System.Messaging;
     using FundooModels;
@@ -20,6 +21,7 @@ namespace FundooRepository
     using FundooRepository.Interfaces;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.IdentityModel.Tokens;
+    using StackExchange.Redis;
 
     /// <summary>
     /// UserRegistration class implements IUserRegistration interface
@@ -57,10 +59,22 @@ namespace FundooRepository
         /// <returns>string message</returns>
         public string AddNewUser(RegistrationModel user)
         {
+            user.UserPassword = encryptPassword(user.UserPassword);
             this.userContext.Users.Add(user);
             this.userContext.SaveChanges();
             string message = "SUCCESS";
             return message;
+        }
+
+        public string encryptPassword(string password)
+        {
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            byte[] encrypt;
+            UTF8Encoding encode = new UTF8Encoding();
+            //encrypt the given password string into Encrypted data  
+            encrypt = md5.ComputeHash(encode.GetBytes(password));
+            password = Convert.ToBase64String(encrypt);
+            return password;
         }
 
         /// <summary>
@@ -72,8 +86,10 @@ namespace FundooRepository
         public string Login(string email, string password)
         {
             string message;
+            string encodedPassword = encryptPassword(password);
             var login = this.userContext.Users
-                        .Where(x => x.UserEmail == email && x.UserPassword == password).SingleOrDefault();
+                        .Where(x => x.UserEmail == email && x.UserPassword == encodedPassword).SingleOrDefault();
+                        
             if (login != null)
             {
                 message = "LOGIN SUCCESS";

@@ -18,8 +18,13 @@ namespace FundooRepository.Migrations
 
             modelBuilder.Entity("FundooModels.RegistrationModel", b =>
                 {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
                     b.Property<string>("UserEmail")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("UserFirstName")
                         .IsRequired()
@@ -33,7 +38,7 @@ namespace FundooRepository.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.HasKey("UserEmail");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });

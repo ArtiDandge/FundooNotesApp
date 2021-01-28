@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FundooRepository.Migrations
 {
@@ -10,14 +11,16 @@ namespace FundooRepository.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserEmail = table.Column<string>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserFirstName = table.Column<string>(nullable: false),
                     UserLastName = table.Column<string>(nullable: false),
+                    UserEmail = table.Column<string>(nullable: false),
                     UserPassword = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserEmail);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                 });
         }
 
