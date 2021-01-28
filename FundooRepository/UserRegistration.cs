@@ -66,6 +66,11 @@ namespace FundooRepository
             return message;
         }
 
+        /// <summary>
+        /// Method to Encrypt User Password
+        /// </summary>
+        /// <param name="password">user password</param>
+        /// <returns>encrypted password</returns>
         public string encryptPassword(string password)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
@@ -183,11 +188,12 @@ namespace FundooRepository
         /// <returns>string message</returns>
         public string ResetPassword(ResetPasswordModel resetPassword)
         {
+            string encodedPassword = encryptPassword(resetPassword.UserPassword);
             var userPassword = this.userContext.Users
                             .SingleOrDefault(x => x.UserEmail == resetPassword.UserEmail);
             if (userPassword != null)
             {
-                userPassword.UserPassword = resetPassword.UserPassword;
+                userPassword.UserPassword = encodedPassword;
                 userContext.Entry(userPassword).State = EntityState.Modified;
                 userContext.SaveChanges();
                 return "Password Reset Successfull ! ";
