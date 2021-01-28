@@ -15,6 +15,8 @@ namespace FundooRepository.Context
 
         public DbSet<RegistrationModel> Users { get; set; }
 
+        public DbSet<NotesModel> FundooNotes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
