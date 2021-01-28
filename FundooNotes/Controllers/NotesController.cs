@@ -39,7 +39,7 @@ namespace FundooNotes.Controllers
 
         [HttpGet]
         [Route("api/GetNote")]
-        public IActionResult GetAllEmployee()
+        public IActionResult GetAllNotes()
         {
             try
             {
@@ -49,6 +49,21 @@ namespace FundooNotes.Controllers
             catch (Exception e)
             {
                 return this.BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("api/DeleteNote")]
+        public IActionResult RemoveEmployeeById(int id)
+        {
+            var result = this.notes.RemoveNote(id);
+            if (result.Equals("Note Deleted Successfully"))
+            {
+                return this.Ok(result);
+            }
+            else
+            {
+                return this.BadRequest();
             }
         }
     }

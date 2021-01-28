@@ -27,5 +27,11 @@ namespace FundooManager.Manager
             IEnumerable<NotesModel> note = this.notes.RetrievNote();
             return note;
         }
+
+        public string RemoveNote(int id)
+        {
+            string note = this.notes.RemoveNote(id);
+            return note;
+        }
     }
 }

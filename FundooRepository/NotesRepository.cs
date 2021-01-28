@@ -39,5 +39,21 @@ namespace FundooRepository
             }
             return result;   
         }
+
+        public string RemoveNote(int id)
+        {
+            try
+            {
+                var note = this.userContext.FundooNotes.Find(id);
+                this.userContext.FundooNotes.Remove(note);
+                this.userContext.SaveChangesAsync();
+                return "Note Deleted Successfully"; ;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+        }
     }
 }
