@@ -1,6 +1,7 @@
 ﻿using FundooModels;
 using FundooRepository.Context;
 using FundooRepository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +54,17 @@ namespace FundooRepository
             {
                 throw e;
             }
+        }
 
+        public string UpdateNote(NotesModel note)
+        {
+            if (note.NotesId != 0)
+            {
+                userContext.Entry(note).State = EntityState.Modified;
+            }
+            this.userContext.SaveChanges();
+            string message = "SUCCESS";
+            return message;
         }
     }
 }

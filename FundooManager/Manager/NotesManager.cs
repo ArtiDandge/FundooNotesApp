@@ -33,5 +33,11 @@ namespace FundooManager.Manager
             string note = this.notes.RemoveNote(id);
             return note;
         }
+
+        public string UpdateNote(NotesModel note)
+        {
+            string message = this.notes.UpdateNote(note);
+            return message;
+        }
     }
 }
