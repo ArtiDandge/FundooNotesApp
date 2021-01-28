@@ -21,5 +21,11 @@ namespace FundooManager.Manager
             string message = this.notes.AddNewNote(note);
             return message;
         }
+
+        public IEnumerable<NotesModel> RetrievNote()
+        {
+            IEnumerable<NotesModel> note = this.notes.RetrievNote();
+            return note;
+        }
     }
 }

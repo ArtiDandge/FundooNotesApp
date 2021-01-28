@@ -8,5 +8,7 @@ namespace FundooManager.Interfaces
     public interface INotesManager
     {
         public string AddNewNote(NotesModel note);
+        public IEnumerable<NotesModel> RetrievNote();
+
     }
 }

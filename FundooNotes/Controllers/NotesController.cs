@@ -36,5 +36,20 @@ namespace FundooNotes.Controllers
                 return this.BadRequest(new { success = false, Message = "Failed to Add New Note to Database" });
             }
         }
+
+        [HttpGet]
+        [Route("api/GetNote")]
+        public IActionResult GetAllEmployee()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result = this.notes.RetrievNote();
+                return this.Ok(result);
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+            }
+        }
     }
 }
