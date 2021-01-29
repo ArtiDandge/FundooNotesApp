@@ -44,15 +44,20 @@ namespace FundooNotes.Controllers
         [HttpPost]
         public IActionResult Notes([FromBody] NotesModel notes)
         {
-            var result = this.notes.AddNewNote(notes);
-            if (result.Equals("SUCCESS"))
+            try
             {
-                return this.Ok(new { success = true, Message = "New Note added Successfully" });
-            }
-            else
-            {
+                var result = this.notes.AddNewNote(notes);
+                if (result.Equals("SUCCESS"))
+                {
+                    return this.Ok(new { success = true, Message = "New Note added Successfully", Data = notes });
+                }
+
                 return this.BadRequest(new { success = false, Message = "Failed to Add New Note to Database" });
             }
+            catch(Exception ex)
+            {
+                return this.NotFound(new { success = false, Message = ex.Message });
+            }            
         }
 
         /// <summary>
@@ -65,11 +70,16 @@ namespace FundooNotes.Controllers
             try
             {
                 IEnumerable<NotesModel> result = this.notes.RetrievNote();
-                return this.Ok(new { success = true, Message = "Note retrieved Successfully", Data = result });
-            }
-            catch 
-            {
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, Message = "Note retrieved Successfully", Data = result });
+                }
+
                 return this.BadRequest(new { success = false, Message = "Unable to retrieve notes." });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { success = false, Message = ex.Message });
             }
         }
 
@@ -81,14 +91,19 @@ namespace FundooNotes.Controllers
         [HttpDelete]
         public IActionResult RemoveEmployeeById(int id)
         {
-            var result = this.notes.RemoveNote(id);
-            if (result.Equals("Note Deleted Successfully"))
+            try
             {
-                return this.Ok(new { success = true, Message = "Note Deleted Successfully" });
-            }
-            else
-            {
+                var result = this.notes.RemoveNote(id);
+                if (result.Equals("Note Deleted Successfully !"))
+                {
+                    return this.Ok(new { success = true, Message = "Note Deleted Successfully", Data = id });
+                }
+
                 return this.BadRequest(new { success = false, Message = "Unable to delete this note. Please ensure valid note id has entered" });
+            }
+            catch(Exception ex)
+            {
+                return this.NotFound(new { success = false, Message = ex.Message });
             }
         }
 
@@ -100,15 +115,20 @@ namespace FundooNotes.Controllers
         [HttpPut]
         public IActionResult UpdateEmployeeDetails([FromBody] NotesModel note)
         {
-            var result = this.notes.UpdateNote(note);
-            if (result.Equals("SUCCESS"))
+            try
             {
-                return this.Ok(new { success = true, Message = "Note updated Successfully" });
-            }
-            else
-            {
+                var result = this.notes.UpdateNote(note);
+                if (result.Equals("SUCCESS"))
+                {
+                    return this.Ok(new { success = true, Message = "Note updated Successfully !", Data = note });
+                }
+
                 return this.BadRequest(new { success = false, Message = "Error While updating note" });
             }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { success = false, Message = ex.Message });
+            }            
         }
     }
 }
