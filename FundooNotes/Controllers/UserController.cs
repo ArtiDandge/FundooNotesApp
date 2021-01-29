@@ -22,6 +22,8 @@ namespace FundooNotes.Controllers
     /// <summary>
     /// UserController Class 
     /// </summary>
+    [ApiController]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         /// <summary>
@@ -44,7 +46,7 @@ namespace FundooNotes.Controllers
         /// <param name="user">user parameter</param>
         /// <returns>Response from this API</returns>
         [HttpPost]
-        [Route("api/newUser")]
+        [Route("newUser")]
         public IActionResult UserRegistration([FromBody]RegistrationModel user)
         {
             var result = this.manager.AddNewUser(user);
@@ -64,7 +66,7 @@ namespace FundooNotes.Controllers
         /// <param name="login">login parameter</param>
         /// <returns>Response from API</returns>
         [HttpPost]
-        [Route("api/Login")]
+        [Route("Login")]
         public IActionResult Login([FromBody] LoginModel login)
         {
             var result = this.manager.Login(login.UserEmail, login.UserPassword);
@@ -85,7 +87,7 @@ namespace FundooNotes.Controllers
         /// <param name="email">user email</param>
         /// <returns>Response from API</returns>
         [HttpPost]
-        [Route("api/ForgotPassword")]
+        [Route("ForgotPassword")]
         public IActionResult ForgotPassword(string email)
         {
             var result = this.manager.ForgotPassword(email);
@@ -105,7 +107,6 @@ namespace FundooNotes.Controllers
         /// <param name="resetPassword"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("api/ResetPassword")]
         public IActionResult ResetPassword(ResetPasswordModel resetPassword)
         {
             var result = this.manager.ResetPassword(resetPassword);

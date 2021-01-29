@@ -18,6 +18,8 @@ namespace FundooNotes.Controllers
     /// <summary>
     /// NotesController class for Notes CRUD implementation
     /// </summary>
+    [ApiController]
+    [Route("api/[controller]")]
     public class NotesController : ControllerBase
     {
         /// <summary>
@@ -40,7 +42,6 @@ namespace FundooNotes.Controllers
         /// <param name="notes">notes parameter</param>
         /// <returns>response data</returns>
         [HttpPost]
-        [Route("api/newNotes")]
         public IActionResult Notes([FromBody] NotesModel notes)
         {
             var result = this.notes.AddNewNote(notes);
@@ -59,17 +60,16 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <returns>response data</returns>
         [HttpGet]
-        [Route("api/GetNote")]
         public IActionResult GetAllNotes()
         {
             try
             {
                 IEnumerable<NotesModel> result = this.notes.RetrievNote();
-                return this.Ok(new { success = true, Message = "Note Deleted Successfully", Data = result });
+                return this.Ok(new { success = true, Message = "Note retrieved Successfully", Data = result });
             }
             catch 
             {
-                return this.BadRequest(new { success = false, Message = "Unable to delete this note. Please ensure valid note id has entered" });
+                return this.BadRequest(new { success = false, Message = "Unable to retrieve notes." });
             }
         }
 
@@ -79,7 +79,6 @@ namespace FundooNotes.Controllers
         /// <param name="id">note id</param>
         /// <returns>response data</returns>
         [HttpDelete]
-        [Route("api/DeleteNote")]
         public IActionResult RemoveEmployeeById(int id)
         {
             var result = this.notes.RemoveNote(id);
@@ -99,7 +98,6 @@ namespace FundooNotes.Controllers
         /// <param name="note">NotesModel note parameter</param>
         /// <returns>response data</returns>
         [HttpPut]
-        [Route("api/UpdateNote")]
         public IActionResult UpdateEmployeeDetails([FromBody] NotesModel note)
         {
             var result = this.notes.UpdateNote(note);
