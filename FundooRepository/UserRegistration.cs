@@ -15,7 +15,6 @@ namespace FundooRepository
     using System.Security.Claims;
     using System.Security.Cryptography;
     using System.Text;
-    using Experimental.System.Messaging;
     using FundooModels;
     using FundooMSMQ;
     using FundooRepository.Context;
@@ -60,11 +59,18 @@ namespace FundooRepository
         /// <returns>string message</returns>
         public string AddNewUser(RegistrationModel user)
         {
-            user.UserPassword = encryptPassword(user.UserPassword);
-            this.userContext.Users.Add(user);
-            this.userContext.SaveChanges();
-            string message = "SUCCESS";
-            return message;
+            try
+            {
+                user.UserPassword = encryptPassword(user.UserPassword);
+                this.userContext.Users.Add(user);
+                this.userContext.SaveChanges();
+                string message = "SUCCESS";
+                return message;
+            }
+            catch(ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }            
         }
 
         /// <summary>
@@ -74,13 +80,20 @@ namespace FundooRepository
         /// <returns>encrypted password</returns>
         public string encryptPassword(string password)
         {
-            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-            byte[] encrypt;
-            UTF8Encoding encode = new UTF8Encoding();
-            //encrypt the given password string into Encrypted data  
-            encrypt = md5.ComputeHash(encode.GetBytes(password));
-            password = Convert.ToBase64String(encrypt);
-            return password;
+            try
+            {
+                MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                byte[] encrypt;
+                UTF8Encoding encode = new UTF8Encoding();
+                //encrypt the given password string into Encrypted data  
+                encrypt = md5.ComputeHash(encode.GetBytes(password));
+                password = Convert.ToBase64String(encrypt);
+                return password;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         /// <summary>
@@ -91,27 +104,34 @@ namespace FundooRepository
         /// <returns>string message</returns>
         public string Login(string email, string password)
         {
-            string message;
-            string encodedPassword = encryptPassword(password);
-            var login = this.userContext.Users
-                        .Where(x => x.UserEmail == email && x.UserPassword == encodedPassword).SingleOrDefault();
-
-            //Redis cache implemetation
-            ConnectionMultiplexer connection = ConnectionMultiplexer.Connect("127.0.0.1:6379");
-            IDatabase database = connection.GetDatabase();
-            database.StringSet(key: "Email", email);
-            var redisValue = database.StringGet("Email");
-
-            if (login != null)
+            try
             {
-                message = "LOGIN SUCCESS";
-            }
-            else
-            {
-                message = "LOGIN UNSUCCESSFUL";
-            }
+                string message;
+                string encodedPassword = encryptPassword(password);
+                var login = this.userContext.Users
+                            .Where(x => x.UserEmail == email && x.UserPassword == encodedPassword).SingleOrDefault();
 
-            return message;
+                //Redis cache implemetation
+                ConnectionMultiplexer connection = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                IDatabase database = connection.GetDatabase();
+                database.StringSet(key: "Email", email);
+                var redisValue = database.StringGet("Email");
+
+                if (login != null)
+                {
+                    message = "LOGIN SUCCESS";
+                }
+                else
+                {
+                    message = "LOGIN UNSUCCESSFUL";
+                }
+
+                return message;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         /// <summary>
@@ -121,7 +141,9 @@ namespace FundooRepository
         /// <returns>returns string JWT token</returns>
         public string GenerateToken(string UserEmail)
         {
-            var token = new JwtSecurityToken(
+            try
+            {
+                var token = new JwtSecurityToken(
                 claims: new Claim[]
                 {
                     new Claim(ClaimTypes.Name, UserEmail)
@@ -130,7 +152,12 @@ namespace FundooRepository
                 expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
                 signingCredentials: new SigningCredentials(SIGNING_KEY, SecurityAlgorithms.HmacSha256)
                 );
-            return new JwtSecurityTokenHandler().WriteToken(token);
+                return new JwtSecurityTokenHandler().WriteToken(token);
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         /// <summary>
@@ -140,35 +167,42 @@ namespace FundooRepository
         /// <returns>string message</returns>
         public string ForgotPassword(string email)
         {
-            string user;
-            string mailSubject = "Link to reset your FundooNotes App Credentials";
-            var userCheck = this.userContext.Users.SingleOrDefault(x => x.UserEmail == email);
-            if (userCheck != null)
+            try
             {
-                Sender sender = new Sender();
-                sender.SendMessage();
-                Receiver receiver = new Receiver();
-                var messageBody = receiver.receiverMessage();
-                user = messageBody;
-                using (MailMessage mailMessage = new MailMessage("dartis2512@gmail.com", email))
+                string user;
+                string mailSubject = "Link to reset your FundooNotes App Credentials";
+                var userCheck = this.userContext.Users.SingleOrDefault(x => x.UserEmail == email);
+                if (userCheck != null)
                 {
-                    mailMessage.Subject = mailSubject;
-                    mailMessage.Body = user;
-                    mailMessage.IsBodyHtml = true;
-                    SmtpClient Smtp = new SmtpClient();
-                    Smtp.Host = "smtp.gmail.com";
-                    Smtp.EnableSsl = true;
-                    Smtp.UseDefaultCredentials = false;
-                    Smtp.Credentials = new NetworkCredential("dartis2512@gmail.com", "Arti@1234567890");
-                    Smtp.Port = 587;
-                    Smtp.Send(mailMessage);
+                    Sender sender = new Sender();
+                    sender.SendMessage();
+                    Receiver receiver = new Receiver();
+                    var messageBody = receiver.receiverMessage();
+                    user = messageBody;
+                    using (MailMessage mailMessage = new MailMessage("dartis2512@gmail.com", email))
+                    {
+                        mailMessage.Subject = mailSubject;
+                        mailMessage.Body = user;
+                        mailMessage.IsBodyHtml = true;
+                        SmtpClient Smtp = new SmtpClient();
+                        Smtp.Host = "smtp.gmail.com";
+                        Smtp.EnableSsl = true;
+                        Smtp.UseDefaultCredentials = false;
+                        Smtp.Credentials = new NetworkCredential("dartis2512@gmail.com", "Arti@1234567890");
+                        Smtp.Port = 587;
+                        Smtp.Send(mailMessage);
+                    }
+                    return "Mail Sent Successfully !";
                 }
-                return "Mail Sent Successfully !";
+                else
+                {
+                    return "Error while sending mail !";
+                }
             }
-            else
+            catch (ArgumentNullException ex)
             {
-                return "Error while sending mail !";
-            }
+                throw new ArgumentNullException(ex.Message);
+            }            
         }
 
         /// <summary>
@@ -178,19 +212,26 @@ namespace FundooRepository
         /// <returns>string message</returns>
         public string ResetPassword(ResetPasswordModel resetPassword)
         {
-            string encodedPassword = encryptPassword(resetPassword.UserPassword);
-            var userPassword = this.userContext.Users
-                            .SingleOrDefault(x => x.UserEmail == resetPassword.UserEmail);
-            if (userPassword != null)
+            try
             {
-                userPassword.UserPassword = encodedPassword;
-                userContext.Entry(userPassword).State = EntityState.Modified;
-                userContext.SaveChanges();
-                return "Password Reset Successfull ! ";
+                string encodedPassword = encryptPassword(resetPassword.UserPassword);
+                var userPassword = this.userContext.Users
+                                .SingleOrDefault(x => x.UserEmail == resetPassword.UserEmail);
+                if (userPassword != null)
+                {
+                    userPassword.UserPassword = encodedPassword;
+                    userContext.Entry(userPassword).State = EntityState.Modified;
+                    userContext.SaveChanges();
+                    return "Password Reset Successfull ! ";
+                }
+                else
+                {
+                    return "Error While Resetting Password !";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return "Error While Resetting Password !";
+                throw new Exception(ex.Message);
             }
         }
     }
