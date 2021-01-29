@@ -61,10 +61,17 @@ namespace FundooRepository
         {
             try
             {
-                user.UserPassword = encryptPassword(user.UserPassword);
-                this.userContext.Users.Add(user);
-                this.userContext.SaveChanges();
-                string message = "SUCCESS";
+                string message;
+                if (user != null)
+                {
+                    user.UserPassword = encryptPassword(user.UserPassword);
+                    this.userContext.Users.Add(user);
+                    this.userContext.SaveChanges();
+                    message = "New User Added Successfully !";
+                    return message;
+                }
+
+                message = "Unable to Add New User";
                 return message;
             }
             catch(ArgumentNullException ex)
@@ -123,7 +130,7 @@ namespace FundooRepository
                 }
                 else
                 {
-                    message = "LOGIN UNSUCCESSFUL";
+                    message = "LOGIN UNSUCCESSFUL, Email Or Password is Wrong";
                 }
 
                 return message;
@@ -193,11 +200,11 @@ namespace FundooRepository
                         Smtp.Send(mailMessage);
                     }
 
-                    return "Mail Sent Successfully !";
+                    return "Link has sent to the given email address to reset the password";
                 }
                 else
                 {
-                    return "Error while sending mail !";
+                    return "Unable to sent link to given email address. This Email doesn't exist in database.";
                 }
             }
             catch (Exception ex)
@@ -227,7 +234,7 @@ namespace FundooRepository
                 }
                 else
                 {
-                    return "Error While Resetting Password !";
+                    return "Failed to Reset Password. Given Email doesn't exist in database.";
                 }
             }
             catch (Exception ex)

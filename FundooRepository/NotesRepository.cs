@@ -44,9 +44,16 @@ namespace FundooRepository
         {
             try
             {
-                this.userContext.FundooNotes.Add(note);
-                this.userContext.SaveChanges();
-                string message = "SUCCESS";
+                string message;
+                if (note != null)
+                {
+                    this.userContext.FundooNotes.Add(note);
+                    this.userContext.SaveChanges();
+                    message = "New Note added Successfully !";
+                    return message;
+                }
+
+                message = "Failed to Add New Note to Database"; 
                 return message;
             }
             catch(Exception ex)
@@ -76,9 +83,9 @@ namespace FundooRepository
 
                 return result;
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
-                throw new NullReferenceException(ex.Message);
+                throw new Exception(ex.Message);
             }           
         }
 
@@ -99,11 +106,11 @@ namespace FundooRepository
                     return "Note Deleted Successfully";
                 }
 
-                return "Unable to delete this note. Id is Incorrect";
+                return "Unable to delete this note. Please ensure Note id Correct.";
             }
-            catch(ArgumentNullException ex)
+            catch(Exception ex)
             {
-                throw new NullReferenceException(ex.Message);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -121,11 +128,11 @@ namespace FundooRepository
                 {
                     this.userContext.Entry(note).State = EntityState.Modified;
                     this.userContext.SaveChanges();
-                    message = "SUCCESS";
+                    message = "Note updated Successfully !";
                     return message;
                 }
 
-                return message = "FAILURE";
+                return message = "Error While updating note";
             }
             catch (Exception ex)
             {

@@ -46,17 +46,17 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var result = this.notes.AddNewNote(notes);
-                if (result.Equals("SUCCESS"))
+                var message = this.notes.AddNewNote(notes);
+                if (message.Equals("New Note added Successfully !"))
                 {
-                    return this.Ok(new { success = true, Message = "New Note added Successfully", Data = notes });
+                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = message, Data = notes });
                 }
 
-                return this.BadRequest(new { success = false, Message = "Failed to Add New Note to Database" });
+                return this.BadRequest(new ResponseModel<NotesModel>() { Status = false, Message = message });
             }
             catch(Exception ex)
             {
-                return this.NotFound(new { success = false, Message = ex.Message });
+                return this.NotFound(new ResponseModel<NotesModel>() { Status = false, Message = ex.Message });
             }            
         }
 
@@ -72,14 +72,14 @@ namespace FundooNotes.Controllers
                 IEnumerable<NotesModel> result = this.notes.RetrievNote();
                 if (result != null)
                 {
-                    return this.Ok(new { success = true, Message = "Note retrieved Successfully", Data = result });
+                    return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Note retrieved Successfully", Data = result });
                 }
 
-                return this.BadRequest(new { success = false, Message = "Unable to retrieve notes." });
+                return this.BadRequest(new ResponseModel<IEnumerable<NotesModel>>() { Status = false, Message = "Unable to retrieve notes." });
             }
             catch (Exception ex)
             {
-                return this.NotFound(new { success = false, Message = ex.Message });
+                return this.NotFound(new ResponseModel<IEnumerable<NotesModel>>() { Status = false, Message = ex.Message });
             }
         }
 
@@ -93,17 +93,17 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var result = this.notes.RemoveNote(id);
-                if (result.Equals("Note Deleted Successfully !"))
+                var message = this.notes.RemoveNote(id);
+                if (message.Equals("Note Deleted Successfully !"))
                 {
-                    return this.Ok(new { success = true, Message = "Note Deleted Successfully", Data = id });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = message, Data = id });
                 }
 
-                return this.BadRequest(new { success = false, Message = "Unable to delete this note. Please ensure valid note id has entered" });
+                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = message });
             }
             catch(Exception ex)
             {
-                return this.NotFound(new { success = false, Message = ex.Message });
+                return this.NotFound(new ResponseModel<int>() { Status = false, Message = ex.Message });
             }
         }
 
@@ -117,17 +117,17 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var result = this.notes.UpdateNote(note);
-                if (result.Equals("SUCCESS"))
+                var message = this.notes.UpdateNote(note);
+                if (message.Equals("Note updated Successfully !"))
                 {
-                    return this.Ok(new { success = true, Message = "Note updated Successfully !", Data = note });
+                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = message, Data = note });
                 }
 
-                return this.BadRequest(new { success = false, Message = "Error While updating note" });
+                return this.BadRequest(new ResponseModel<NotesModel>() { Status = false, Message = message });
             }
             catch (Exception ex)
             {
-                return this.NotFound(new { success = false, Message = ex.Message });
+                return this.NotFound(new ResponseModel<NotesModel>() { Status = false, Message = ex.Message });
             }            
         }
     }

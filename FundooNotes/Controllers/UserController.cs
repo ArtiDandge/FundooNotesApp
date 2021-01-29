@@ -54,14 +54,14 @@ namespace FundooNotes.Controllers
                 var result = this.manager.AddNewUser(user);
                 if (result.Equals("SUCCESS"))
                 {
-                    return this.Ok(new { success = true, Message = "New User Added Successfully !", Data = user });
+                    return this.Ok(new ResponseModel<RegistrationModel>(){Status = true, Message = result, Data = user });
                 }
 
-                return this.BadRequest(new { success = false, Message = "Failed to Add New User to Data to Database"});
+                return this.BadRequest(new ResponseModel<RegistrationModel>(){ Status = false, Message = result });
             }
             catch (Exception ex)
             {
-                return this.NotFound(new { success = false, Message = ex.Message });
+                return this.NotFound(new ResponseModel<RegistrationModel>() { Status = false, Message = ex.Message });
             }
         }
 
@@ -76,18 +76,18 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var result = this.manager.Login(login.UserEmail, login.UserPassword);
-                if (result.Equals("LOGIN SUCCESS"))
+                var message = this.manager.Login(login.UserEmail, login.UserPassword);
+                if (message.Equals("LOGIN SUCCESS"))
                 {
                     string tokenString = this.manager.GenerateToken(login.UserEmail);
-                    return this.Ok(new { success = true, Message = "Login Successfully", Data = login,tokenString });
+                    return this.Ok(new { Status = true, Message = message, Data = login,tokenString });
                 }
  
-                return this.BadRequest(new { success = false, Message = "Failed to Login. Email Id or Password is mismatched." });
+                return this.BadRequest(new ResponseModel<LoginModel>() { Status = false, Message = message });
              }
             catch(Exception ex)
             {
-                return this.NotFound(new { success = false, Message = ex.Message });
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
             
         }
@@ -103,17 +103,17 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var result = this.manager.ForgotPassword(email);
-                if (result.Equals("Mail Sent Successfully !"))
+                var message = this.manager.ForgotPassword(email);
+                if (message.Equals("Link has sent to the given email address to reset the password"))
                 {
-                    return this.Ok(new { success = true, Message = "Link has sent to the given email address to reset the password", Data = email });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = message, Data = email });
                 }
 
-                return this.BadRequest(new { success = false, Message = "Unable to sent link to given email address. This Email doesn't exist in database." });
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = message });
             }
             catch (Exception ex)
             {
-                return this.NotFound(new { success = false, Message = ex.Message });
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
 
@@ -127,17 +127,17 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var result = this.manager.ResetPassword(resetPassword);
-                if (result.Equals("Password Reset Successfull ! "))
+                var message = this.manager.ResetPassword(resetPassword);
+                if (message.Equals("Password Reset Successfull ! "))
                 {
-                    return this.Ok(new { success = true, Message = "Password Reset Successfully", Data = resetPassword });
+                    return this.Ok(new ResponseModel<ResetPasswordModel>() { Status = true, Message = message, Data = resetPassword });
                 }
                 
-                return this.BadRequest(new { success = false, Message = "Failed to Reset Password. This Email doesn't exist in database." });
+                return this.BadRequest(new { Status = false, Message = message });
             }
             catch (Exception ex)
             {
-                return this.NotFound(new { success = false, Message = ex.Message });
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
     }
