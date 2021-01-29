@@ -1,26 +1,43 @@
-﻿using FundooManager.Interfaces;
-using FundooModels;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="NotesController.cs" company="Bridgelabz">
+//   Copyright © 2021 Company="BridgeLabz"
+// </copyright>
+// <creator name="Dandge Arti Subhash"/>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace FundooNotes.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using FundooManager.Interfaces;
+    using FundooModels;
+    using Microsoft.AspNetCore.Mvc;
+
+    /// <summary>
+    /// NotesController class for Notes CRUD implementation
+    /// </summary>
     public class NotesController : ControllerBase
     {
+        /// <summary>
+        /// INotesManager notes parameter
+        /// </summary>
         private readonly INotesManager notes;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotesController" /> class.
+        /// </summary>
+        /// <param name="notes">INotesManager notes parameter</param>
         public NotesController(INotesManager notes)
         {
             this.notes = notes;
         }
 
         /// <summary>
-        /// Notes Controller
+        /// API Method to add new Note to the database
         /// </summary>
-        /// <param name="notes">new notes</param>
+        /// <param name="notes">notes parameter</param>
         /// <returns>response data</returns>
         [HttpPost]
         [Route("api/newNotes")]
@@ -37,6 +54,10 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// API to Retrieve all notes from database
+        /// </summary>
+        /// <returns>response data</returns>
         [HttpGet]
         [Route("api/GetNote")]
         public IActionResult GetAllNotes()
@@ -44,14 +65,19 @@ namespace FundooNotes.Controllers
             try
             {
                 IEnumerable<NotesModel> result = this.notes.RetrievNote();
-                return this.Ok(result);
+                return this.Ok(new { success = true, Message = "Note Deleted Successfully", Data = result });
             }
-            catch (Exception e)
+            catch 
             {
-                return this.BadRequest(e.Message);
+                return this.BadRequest(new { success = false, Message = "Unable to delete this note. Please ensure valid note id has entered" });
             }
         }
 
+        /// <summary>
+        /// API to Delete Note from Database
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>response data</returns>
         [HttpDelete]
         [Route("api/DeleteNote")]
         public IActionResult RemoveEmployeeById(int id)
@@ -59,14 +85,19 @@ namespace FundooNotes.Controllers
             var result = this.notes.RemoveNote(id);
             if (result.Equals("Note Deleted Successfully"))
             {
-                return this.Ok(result);
+                return this.Ok(new { success = true, Message = "Note Deleted Successfully" });
             }
             else
             {
-                return this.BadRequest();
+                return this.BadRequest(new { success = false, Message = "Unable to delete this note. Please ensure valid note id has entered" });
             }
         }
 
+        /// <summary>
+        /// API to Update note
+        /// </summary>
+        /// <param name="note">NotesModel note parameter</param>
+        /// <returns>response data</returns>
         [HttpPut]
         [Route("api/UpdateNote")]
         public IActionResult UpdateEmployeeDetails([FromBody] NotesModel note)
@@ -78,7 +109,7 @@ namespace FundooNotes.Controllers
             }
             else
             {
-                return this.BadRequest(new { success = true, Message = "Error While updating note" });
+                return this.BadRequest(new { success = false, Message = "Error While updating note" });
             }
         }
     }
