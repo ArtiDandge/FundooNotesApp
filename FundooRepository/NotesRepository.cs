@@ -139,5 +139,30 @@ namespace FundooRepository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method to Retrieve Note by Id 
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>user note</returns>
+        public IEnumerable<NotesModel> GetNoteById(int id)
+        {
+            try
+            {
+                IEnumerable<NotesModel> result;
+                if (id > 0)
+                {
+                    var note = this.userContext.FundooNotes.Where(x => x.NotesId == id);
+                    result = note;
+                    return result;
+                }
+                result = null;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

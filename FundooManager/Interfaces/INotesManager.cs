@@ -43,5 +43,13 @@ namespace FundooManager.Interfaces
         /// <param name="note">note parameter</param>
         /// <returns>string message</returns>
         public string UpdateNote(NotesModel note);
+
+
+        /// <summary>
+        /// Method declaration to get a note by its Id
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        public IEnumerable<NotesModel> GetNoteById(int id);
     }
 }

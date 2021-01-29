@@ -23,6 +23,5 @@ namespace FundooModels
 
         [ForeignKey("RegistrationModel")]
         public int UserId { get; set; }
-        public RegistrationModel RegistrationModel { get; set; }
     }
 }

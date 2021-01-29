@@ -96,5 +96,23 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method to Call GetNoteById() method to remove a note 
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string note message</returns>
+        public IEnumerable<NotesModel> GetNoteById(int id)
+        {
+            try
+            {
+                IEnumerable<NotesModel> note = this.notes.GetNoteById(id);
+                return note;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

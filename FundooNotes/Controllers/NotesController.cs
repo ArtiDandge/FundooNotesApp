@@ -130,5 +130,30 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<NotesModel>() { Status = false, Message = ex.Message });
             }            
         }
+
+        /// <summary>
+        /// Controller Method to get note by its id
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>note data</returns>
+        [HttpGet]
+        [Route("GetNoteById")]
+        public IActionResult GetNoteeById(int id)
+        {
+            try
+            {
+                var result = this.notes.GetNoteById(id);
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Note Retrived Successfully", Data = result });
+                }
+
+                return this.BadRequest(new ResponseModel<IEnumerable<NotesModel>>() { Status = false, Message = "Unable to Retrieve Note" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<IEnumerable<NotesModel>>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }
