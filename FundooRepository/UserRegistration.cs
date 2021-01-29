@@ -192,6 +192,7 @@ namespace FundooRepository
                         Smtp.Port = 587;
                         Smtp.Send(mailMessage);
                     }
+
                     return "Mail Sent Successfully !";
                 }
                 else
@@ -199,9 +200,9 @@ namespace FundooRepository
                     return "Error while sending mail !";
                 }
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
-                throw new ArgumentNullException(ex.Message);
+                throw new Exception(ex.Message);
             }            
         }
 

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundooManager", "FundooMana
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundooRepository", "FundooRepository\FundooRepository.csproj", "{00AC9DC6-E838-43A9-9EA0-54B80214DAC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundooMSMQ", "FundooMSMQ\FundooMSMQ.csproj", "{FB6C4044-8B90-42D3-8DB4-1676E21CE156}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundooMSMQ", "FundooMSMQ\FundooMSMQ.csproj", "{FB6C4044-8B90-42D3-8DB4-1676E21CE156}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
