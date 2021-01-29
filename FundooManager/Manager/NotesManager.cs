@@ -50,8 +50,15 @@ namespace FundooManager.Manager
         /// <returns>All notes</returns>
         public IEnumerable<NotesModel> RetrievNote()
         {
-            IEnumerable<NotesModel> note = this.notes.RetrievNote();
-            return note;
+            try
+            {
+                IEnumerable<NotesModel> note = this.notes.RetrievNote();
+                return note;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -61,8 +68,15 @@ namespace FundooManager.Manager
         /// <returns>string note message</returns>
         public string RemoveNote(int id)
         {
-            string note = this.notes.RemoveNote(id);
-            return note;
+            try
+            {
+                string note = this.notes.RemoveNote(id);
+                return note;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -72,8 +86,15 @@ namespace FundooManager.Manager
         /// <returns>string message</returns>
         public string UpdateNote(NotesModel note)
         {
-            string message = this.notes.UpdateNote(note);
-            return message;
+            try
+            {
+                string message = this.notes.UpdateNote(note);
+                return message;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

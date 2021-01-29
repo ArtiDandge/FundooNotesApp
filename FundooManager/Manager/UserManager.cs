@@ -40,8 +40,15 @@ namespace FundooManager.Manager
         /// <returns>string message</returns>
         public string AddNewUser(RegistrationModel user)
         {
-            string message = this.userRegistration.AddNewUser(user);
-            return message;
+            try
+            {
+                string message = this.userRegistration.AddNewUser(user);
+                return message;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -52,8 +59,15 @@ namespace FundooManager.Manager
         /// <returns>string message</returns>
         public string Login(string email, string password)
         {
-            string message = this.userRegistration.Login(email, password);
-            return message;
+            try
+            {
+                string message = this.userRegistration.Login(email, password);
+                return message;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }            
         }
 
         /// <summary>
@@ -63,8 +77,15 @@ namespace FundooManager.Manager
         /// <returns>string message</returns>
         public string ForgotPassword(string email)
         {
-            string message = this.userRegistration.ForgotPassword(email);
-            return message;
+            try
+            {
+                string message = this.userRegistration.ForgotPassword(email);
+                return message;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -74,14 +95,28 @@ namespace FundooManager.Manager
         /// <returns>string message</returns>
         public string ResetPassword(ResetPasswordModel resetPassword)
         {
-            string message = this.userRegistration.ResetPassword(resetPassword);
-            return message;
+            try
+            {
+                string message = this.userRegistration.ResetPassword(resetPassword);
+                return message;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public string GenerateToken(string UserEmail)
         {
-            string token = this.userRegistration.GenerateToken(UserEmail);
-            return token;
+            try
+            {
+                string token = this.userRegistration.GenerateToken(UserEmail);
+                return token;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
