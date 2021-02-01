@@ -17,9 +17,16 @@ namespace FundooManager.Manager
         }
 
         public string CreateLable(LableModel lable)
-        {
+        {     
             string message = this.lable.CreateLable(lable);
             return message;
         }
+
+        public IEnumerable<LableModel> RetriveLables()
+        {
+            IEnumerable<LableModel> lables = this.lable.RetriveLables();
+            return lables;
+        }
+
     }
 }

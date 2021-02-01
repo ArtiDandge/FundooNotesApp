@@ -42,5 +42,30 @@ namespace FundooRepository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method to Retrieve All Lables
+        /// </summary>
+        /// <returns>all lables</returns>
+        public IEnumerable<LableModel> RetriveLables()
+        {
+            try
+            {
+                IEnumerable<LableModel> result;
+                var lables = this.userContext.Lables;
+                if (lables != null)
+                {
+                    result = lables;
+                    return result;
+                }
+
+                result = null;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

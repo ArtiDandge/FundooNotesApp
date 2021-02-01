@@ -8,5 +8,6 @@ namespace FundooRepository.Interfaces
     public interface ILable
     {
         public string CreateLable(LableModel lable);
+        public IEnumerable<LableModel> RetriveLables();
     }
 }
