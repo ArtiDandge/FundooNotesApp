@@ -114,5 +114,35 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method to call GetPinnedNote method from NotesRepository 
+        /// </summary>
+        /// <returns>pinned note</returns>
+        public IEnumerable<NotesModel> GetPinnedNote()
+        {
+            try
+            {
+                IEnumerable<NotesModel> note = this.notes.GetPinnedNote();
+                return note;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public string PinOrUnpinNote(int id)
+        {
+            try
+            {
+                var note = this.notes.PinOrUnpinNote(id);
+                return note;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

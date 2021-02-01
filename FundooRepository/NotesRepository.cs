@@ -164,5 +164,62 @@ namespace FundooRepository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method implementation to get pinned note
+        /// </summary>
+        /// <returns>pinned note</returns>
+        public IEnumerable<NotesModel> GetPinnedNote()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result;
+                var note = this.userContext.FundooNotes.Where(x => x.Pin == true);
+                result = note;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Method to Pin Or Unpin the Note 
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        public string PinOrUnpinNote(int id)
+        {
+            try
+            {
+                string message;
+                var newNote = new NotesModel() { NotesId = id };
+                var note = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Pin;
+                if (note == false)
+                {
+                    var pinNote = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Pin == true;
+                    var pinThisNote = userContext.FundooNotes.FirstOrDefault(u => u.NotesId == id);
+                    pinThisNote.Pin = pinNote;
+                    this.userContext.SaveChanges();
+                    message =  "Note Pinned";
+                    return message;
+                }
+                if( note == true)
+                {
+                    var unpinNote = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Pin == false;
+                    var unpinThisNote = userContext.FundooNotes.FirstOrDefault(u => u.NotesId == id);
+                    unpinThisNote.Pin = unpinNote;
+                    this.userContext.SaveChanges();
+                    message =  "Note Unpinned";
+                    return message;
+                }
+                return message = "Note is unpinned by default.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

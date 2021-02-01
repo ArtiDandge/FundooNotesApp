@@ -155,5 +155,30 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<IEnumerable<NotesModel>>() { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Controller Method call method PinOrUnpinNote() method to Pin Or unpin the note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        [HttpPut]
+        [Route("PinOrUnpinNote")]
+        public IActionResult PinOrUnpinNote(int id)
+        {
+            try
+            {
+                var result = this.notes.PinOrUnpinNote(id);
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = result });
+                }
+
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }
