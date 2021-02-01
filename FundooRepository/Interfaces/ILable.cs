@@ -7,6 +7,6 @@ namespace FundooRepository.Interfaces
 {
     public interface ILable
     {
-        public string AddLable(LableModel lable);
+        public string CreateLable(LableModel lable);
     }
 }

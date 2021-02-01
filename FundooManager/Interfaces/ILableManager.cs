@@ -7,6 +7,6 @@ namespace FundooManager.Interfaces
 {
     public interface ILableManager
     {
-        public string AddLable(LableModel lable);
+        public string CreateLable(LableModel lable);
     }
 }
