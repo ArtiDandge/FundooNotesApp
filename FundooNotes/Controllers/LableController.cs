@@ -106,5 +106,29 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<LableModel>() { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Method to delete lable
+        /// </summary>
+        /// <param name="id">lable id</param>
+        /// <returns>API response</returns>
+        [HttpDelete]
+        public IActionResult RemoveLable(int id)
+        {
+            try
+            {
+                var message = this.lable.DeleteLable(id);
+                if (message.Equals("Lable Deleted Successfully !"))
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = message, Data = id });
+                }
+
+                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = message });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<int>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

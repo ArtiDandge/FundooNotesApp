@@ -94,5 +94,30 @@ namespace FundooRepository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method to Delete Lable
+        /// </summary>
+        /// <param name="id">lable id</param>
+        /// <returns>string message</returns>
+        public string DeleteLable(int id)
+        {
+            try
+            {
+                if (id > 0)
+                {
+                    var lable = this.userContext.Lables.Find(id);
+                    this.userContext.Lables.Remove(lable);
+                    this.userContext.SaveChangesAsync();
+                    return "Lable Deleted Successfully !";
+                }
+
+                return "Unable to delete this Lable.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

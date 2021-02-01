@@ -33,5 +33,11 @@ namespace FundooManager.Manager
             string message = this.lable.UpdateLable(lable);
             return message;
         }
+
+        public string DeleteLable(int id)
+        {
+            string message = this.lable.DeleteLable(id);
+            return message;
+        }
     }
 }
