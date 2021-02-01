@@ -113,7 +113,7 @@ namespace FundooNotes.Controllers
         /// <param name="note">NotesModel note parameter</param>
         /// <returns>response data</returns>
         [HttpPut]
-        public IActionResult UpdateEmployeeDetails([FromBody] NotesModel note)
+        public IActionResult UpdateNote([FromBody] NotesModel note)
         {
             try
             {

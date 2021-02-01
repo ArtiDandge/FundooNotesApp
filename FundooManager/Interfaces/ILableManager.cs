@@ -9,5 +9,6 @@ namespace FundooManager.Interfaces
     {
         public string CreateLable(LableModel lable);
         public IEnumerable<LableModel> RetriveLables();
+        public string UpdateLable(LableModel lable);
     }
 }

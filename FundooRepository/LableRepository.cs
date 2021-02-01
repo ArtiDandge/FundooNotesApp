@@ -1,6 +1,7 @@
 ﻿using FundooModels;
 using FundooRepository.Context;
 using FundooRepository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -61,6 +62,32 @@ namespace FundooRepository
 
                 result = null;
                 return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Method to update lable
+        /// </summary>
+        /// <param name="lable">lable parameter</param>
+        /// <returns>string message</returns>
+        public string UpdateLable(LableModel lable)
+        {
+            try
+            {
+                string message;
+                if (lable.LableId > 0)
+                {
+                    this.userContext.Entry(lable).State = EntityState.Modified;
+                    this.userContext.SaveChanges();
+                    message = "Lable updated Successfully !";
+                    return message;
+                }
+
+                return message = "Error While updating lable";
             }
             catch (Exception ex)
             {
