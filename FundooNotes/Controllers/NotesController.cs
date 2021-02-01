@@ -180,5 +180,30 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Controller Method call method ArchiveOrUnArchiveNote() method to Archive Or Unarchive the note
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("ArchiveOrUnArchiveNote")]
+        public IActionResult ArchiveOrUnarchive(int id)
+        {
+            try
+            {
+                var result = this.notes.ArchiveOrUnArchiveNote(id);
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = result });
+                }
+
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

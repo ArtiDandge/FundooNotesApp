@@ -166,25 +166,6 @@ namespace FundooRepository
         }
 
         /// <summary>
-        /// Method implementation to get pinned note
-        /// </summary>
-        /// <returns>pinned note</returns>
-        public IEnumerable<NotesModel> GetPinnedNote()
-        {
-            try
-            {
-                IEnumerable<NotesModel> result;
-                var note = this.userContext.FundooNotes.Where(x => x.Pin == true);
-                result = note;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        /// <summary>
         /// Method to Pin Or Unpin the Note 
         /// </summary>
         /// <param name="id">note id</param>
@@ -194,7 +175,6 @@ namespace FundooRepository
             try
             {
                 string message;
-                var newNote = new NotesModel() { NotesId = id };
                 var note = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Pin;
                 if (note == false)
                 {
@@ -214,7 +194,44 @@ namespace FundooRepository
                     message =  "Note Unpinned";
                     return message;
                 }
-                return message = "Note is unpinned by default.";
+                return message = "Unable to pin or unpin note.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Method to Archive or unarchive the note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        public string ArchiveOrUnArchiveNote(int id)
+        {
+            try
+            {
+               string message;
+               var note = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Archieve;
+                if (note == false)
+                {
+                    var archiveNote = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Archieve == true;
+                    var archiveThisNote = userContext.FundooNotes.FirstOrDefault(u => u.NotesId == id);
+                    archiveThisNote.Archieve = archiveNote;
+                    this.userContext.SaveChanges();
+                    message = "Note Archived";
+                    return message;
+                }
+                if (note == true)
+                {
+                    var unArchiveNote = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Archieve == false;
+                    var unArchiveThisNote = userContext.FundooNotes.FirstOrDefault(u => u.NotesId == id);
+                    unArchiveThisNote.Archieve = unArchiveNote;
+                    this.userContext.SaveChanges();
+                    message = "Note Unarchived";
+                    return message;
+                }
+                return message = "Unable to archive or unarchive note.";
             }
             catch (Exception ex)
             {

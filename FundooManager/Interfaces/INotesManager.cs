@@ -53,16 +53,17 @@ namespace FundooManager.Interfaces
         public IEnumerable<NotesModel> GetNoteById(int id);
 
         /// <summary>
-        /// Method declaration to get pinned note
-        /// </summary>
-        /// <returns>pinned note data</returns>
-        public IEnumerable<NotesModel> GetPinnedNote();
-
-        /// <summary>
         /// Method declaration to pin and unpin to note
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         public string PinOrUnpinNote(int id);
+
+        /// <summary>
+        /// Method declaration to Archive Or UnArchive Note to note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        public string ArchiveOrUnArchiveNote(int id);
     }
 }

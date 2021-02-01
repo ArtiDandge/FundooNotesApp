@@ -116,14 +116,15 @@ namespace FundooManager.Manager
         }
 
         /// <summary>
-        /// Method to call GetPinnedNote method from NotesRepository 
+        /// Method to Call PinOrUnpinNote() method to Pin Or Unpin a Note 
         /// </summary>
-        /// <returns>pinned note</returns>
-        public IEnumerable<NotesModel> GetPinnedNote()
+        /// <param name="id">note id</param>
+        /// <returns>string note message</returns>
+        public string PinOrUnpinNote(int id)
         {
             try
             {
-                IEnumerable<NotesModel> note = this.notes.GetPinnedNote();
+                var note = this.notes.PinOrUnpinNote(id);
                 return note;
             }
             catch (Exception ex)
@@ -132,11 +133,16 @@ namespace FundooManager.Manager
             }
         }
 
-        public string PinOrUnpinNote(int id)
+        /// <summary>
+        /// Method to Call PinOrUnpinNote() method to Pin Or Unpin a Note 
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string note message</returns>
+        public string ArchiveOrUnArchiveNote(int id)
         {
             try
             {
-                var note = this.notes.PinOrUnpinNote(id);
+                var note = this.notes.ArchiveOrUnArchiveNote(id);
                 return note;
             }
             catch (Exception ex)
