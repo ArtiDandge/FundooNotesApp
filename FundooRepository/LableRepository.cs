@@ -4,6 +4,7 @@ using FundooRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FundooRepository
@@ -113,6 +114,32 @@ namespace FundooRepository
                 }
 
                 return "Unable to delete this Lable.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Method to get lable by its id
+        /// </summary>
+        /// <param name="id">lable id</param>
+        /// <returns>lable details</returns>
+        public IEnumerable<LableModel> GetLableById(int id)
+        {
+            try
+            {
+                IEnumerable<LableModel> result;
+                var lables = this.userContext.Lables.Where(x => x.LableId == id);
+                if (lables != null)
+                {
+                    result = lables;
+                    return result;
+                }
+
+                result = null;
+                return result;
             }
             catch (Exception ex)
             {

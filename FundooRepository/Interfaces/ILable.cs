@@ -11,5 +11,6 @@ namespace FundooRepository.Interfaces
         public IEnumerable<LableModel> RetriveLables();
         public string UpdateLable(LableModel lable);
         public string DeleteLable(int id);
+        public IEnumerable<LableModel> GetLableById(int id);
     }
 }
