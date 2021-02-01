@@ -17,6 +17,7 @@ namespace FundooNotes.Controllers
     using FundooModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
@@ -30,14 +31,16 @@ namespace FundooNotes.Controllers
         /// Field 'manager' of type IUserManager
         /// </summary>
         private readonly IUserManager manager;
-       
+
+        private readonly ILogger<UserController> _logger;
         /// <summary>
         /// Initializes a new instance of the <see cref="UserController" /> class.
         /// </summary>
         /// <param name="manager">manager parameter for this constructor</param>
-        public UserController(IUserManager manager)
+        public UserController(IUserManager manager, ILogger<UserController> _logger)
         {
             this.manager = manager;
+            this._logger = _logger;
         }
 
         /// <summary>
@@ -49,9 +52,11 @@ namespace FundooNotes.Controllers
         [Route("newUser")]
         public IActionResult UserRegistration([FromBody]RegistrationModel user)
         {
+            _logger.LogInformation("The API for Adding new User has accessed");
             try
             {
                 var result = this.manager.AddNewUser(user);
+                _logger.LogInformation("new User added successfully");
                 if (result.Equals("SUCCESS"))
                 {
                     return this.Ok(new ResponseModel<RegistrationModel>(){Status = true, Message = result, Data = user });
@@ -61,6 +66,7 @@ namespace FundooNotes.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogWarning("An Exception caugth while adding new user"+ ex.Message);
                 return this.NotFound(new ResponseModel<RegistrationModel>() { Status = false, Message = ex.Message });
             }
         }
@@ -74,11 +80,13 @@ namespace FundooNotes.Controllers
         [Route("Login")]
         public IActionResult Login([FromBody] LoginModel login)
         {
+            _logger.LogInformation("The API for User Login has accessed");
             try
             {
                 var message = this.manager.Login(login.UserEmail, login.UserPassword);
                 if (message.Equals("LOGIN SUCCESS"))
                 {
+                    _logger.LogInformation("User Logged Login Successfull!");
                     string tokenString = this.manager.GenerateToken(login.UserEmail);
                     return this.Ok(new { Status = true, Message = message, Data = login,tokenString });
                 }
@@ -87,9 +95,9 @@ namespace FundooNotes.Controllers
              }
             catch(Exception ex)
             {
+                _logger.LogWarning("Exception encountered while log in "+ ex.Message);
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
-            }
-            
+            }            
         }
 
         /// <summary>
@@ -103,9 +111,11 @@ namespace FundooNotes.Controllers
         {
             try
             {
+                _logger.LogInformation("The API for Forgot Password has accessed");
                 var message = this.manager.ForgotPassword(email);
                 if (message.Equals("Link has sent to the given email address to reset the password"))
                 {
+                    _logger.LogInformation("Link has sent to given gmail to reset password");
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = message, Data = email });
                 }
 
@@ -113,6 +123,7 @@ namespace FundooNotes.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogWarning("Exception encountered while sending link to given mail address" + ex.Message);
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
@@ -127,9 +138,11 @@ namespace FundooNotes.Controllers
         {
             try
             {
+                _logger.LogInformation("The API for Reset Password has accessed");
                 var message = this.manager.ResetPassword(resetPassword);
                 if (message.Equals("Password Reset Successfull ! "))
                 {
+                    _logger.LogInformation("Password has reset successfully");
                     return this.Ok(new ResponseModel<ResetPasswordModel>() { Status = true, Message = message, Data = resetPassword });
                 }
                 
@@ -137,6 +150,7 @@ namespace FundooNotes.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogWarning("Exception encountered while resetting the poassword" + ex.Message);
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }

@@ -19,9 +19,12 @@ namespace FundooNotes
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+    using NLog;
     using System;
+    using System.IO;
 
     /// <summary>
     /// Startup. cs class. This class is an entry point for asp.net project
@@ -35,6 +38,7 @@ namespace FundooNotes
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
+            LogManager.LoadConfiguration(System.String.Concat(Directory.GetCurrentDirectory(), "/NLog.config"));
         }
 
         /// <summary>
@@ -49,7 +53,7 @@ namespace FundooNotes
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<UserContext>(options => options.UseMySql(this.Configuration["Data:ConnectionStrings:DefaultConnection"]));
+            services.AddDbContext<UserContext>(options => options.UseMySql(this.Configuration["Database:ConnectionStrings:DefaultConnection"]));
             services.AddTransient<IUserRegistration, UserRegistration>();
             services.AddTransient<IUserManager, UserManager>();
             services.AddTransient<INotes, NotesRepository>();
@@ -82,8 +86,10 @@ namespace FundooNotes
         /// </summary>
         /// <param name="app">app parameter of type IApplicationBuilder</param>
         /// <param name="env">env parameter of type IWebHostEnvironment</param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            var path = Directory.GetCurrentDirectory();
+            loggerFactory.AddFile($"{path}\\Logs\\Log.txt");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
