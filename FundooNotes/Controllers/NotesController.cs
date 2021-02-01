@@ -89,7 +89,7 @@ namespace FundooNotes.Controllers
         /// <param name="id">note id</param>
         /// <returns>response data</returns>
         [HttpDelete]
-        public IActionResult RemoveEmployeeById(int id)
+        public IActionResult RemoveNoteById(int id)
         {
             try
             {
