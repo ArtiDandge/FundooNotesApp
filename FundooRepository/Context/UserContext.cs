@@ -17,6 +17,8 @@ namespace FundooRepository.Context
 
         public DbSet<NotesModel> FundooNotes { get; set; }
 
+        public DbSet<LableModel> Lables { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

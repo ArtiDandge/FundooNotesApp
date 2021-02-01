@@ -211,8 +211,8 @@ namespace FundooRepository
         {
             try
             {
-               string message;
-               var note = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Archieve;
+                string message;
+                var note = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Archieve;
                 if (note == false)
                 {
                     var archiveNote = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Archieve == true;
