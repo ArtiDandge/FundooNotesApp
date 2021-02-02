@@ -20,15 +20,26 @@ namespace FundooRepository.Migrations
                     Color = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
                     Lable = table.Column<string>(nullable: true),
-                    Pin = table.Column<bool>(nullable: false, defaultValue: false),
-                    Archieve = table.Column<bool>(nullable: false, defaultValue: false),
-                    Is_Trash = table.Column<bool>(nullable: false, defaultValue: false),
+                    Pin = table.Column<bool>(nullable: false),
+                    Archieve = table.Column<bool>(nullable: false),
+                    Is_Trash = table.Column<bool>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FundooNotes", x => x.NotesId);
+                    table.ForeignKey(
+                        name: "FK_FundooNotes_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FundooNotes_UserId",
+                table: "FundooNotes",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

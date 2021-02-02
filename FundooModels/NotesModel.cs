@@ -30,6 +30,6 @@ namespace FundooModels
 
         [ForeignKey("RegistrationModel")]
         public int UserId { get; set; }
-
-     }
+        public virtual RegistrationModel RegistrationModel { get; set; }
+    }
 }

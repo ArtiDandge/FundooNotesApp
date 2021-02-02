@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FundooRepository.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210202075338_FundooNotes")]
-    partial class FundooNotes
+    [Migration("20210202125548_Lables")]
+    partial class Lables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,15 @@ namespace FundooRepository.Migrations
                     b.Property<string>("Lable")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<int>("NoteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("LableId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Lables");
                 });
@@ -101,6 +109,15 @@ namespace FundooRepository.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("FundooModels.LableModel", b =>
+                {
+                    b.HasOne("FundooModels.RegistrationModel", "RegistrationModel")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
