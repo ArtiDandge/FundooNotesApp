@@ -51,6 +51,9 @@ namespace FundooRepository.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<bool>("Is_Trash")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Lable")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 

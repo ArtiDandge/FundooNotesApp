@@ -18,10 +18,18 @@ namespace FundooModels
         public string Color { get; set; }
         public string Image { get; set; }
         public string Lable { get; set; }
-        public bool Pin { get; set; } = false;
-        public bool Archieve { get; set; } = false;
+
+        [DefaultValue(false)]
+        public bool Pin { get; set; }
+
+        [DefaultValue(false)]
+        public bool Archieve { get; set; }
+
+        [DefaultValue(false)]
+        public bool Is_Trash { get; set; }
 
         [ForeignKey("RegistrationModel")]
         public int UserId { get; set; }
-    }
+
+     }
 }

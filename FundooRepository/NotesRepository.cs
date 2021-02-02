@@ -175,25 +175,27 @@ namespace FundooRepository
             try
             {
                 string message;
-                var note = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Pin;
-                if (note == false)
+                var note = this.userContext.FundooNotes.Find(id);
+                if(note != null)
                 {
-                    var pinNote = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Pin == true;
-                    var pinThisNote = userContext.FundooNotes.FirstOrDefault(u => u.NotesId == id);
-                    pinThisNote.Pin = pinNote;
-                    this.userContext.SaveChanges();
-                    message =  "Note Pinned";
-                    return message;
+                    if (note.Pin == false)
+                    {
+                        note.Pin = true;
+                        this.userContext.Entry(note).State = EntityState.Modified;
+                        this.userContext.SaveChanges();
+                        message = "Note Pinned";
+                        return message;
+                    }
+                    if (note.Pin == true)
+                    {
+                        note.Pin = false;
+                        this.userContext.Entry(note).State = EntityState.Modified;
+                        this.userContext.SaveChanges();
+                        message = "Note Unpinned";
+                        return message;
+                    }
                 }
-                if( note == true)
-                {
-                    var unpinNote = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Pin == false;
-                    var unpinThisNote = userContext.FundooNotes.FirstOrDefault(u => u.NotesId == id);
-                    unpinThisNote.Pin = unpinNote;
-                    this.userContext.SaveChanges();
-                    message =  "Note Unpinned";
-                    return message;
-                }
+               
                 return message = "Unable to pin or unpin note.";
             }
             catch (Exception ex)
@@ -212,25 +214,27 @@ namespace FundooRepository
             try
             {
                 string message;
-                var note = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Archieve;
-                if (note == false)
+                var note = this.userContext.FundooNotes.Find(id);
+                if (note != null)
                 {
-                    var archiveNote = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Archieve == true;
-                    var archiveThisNote = userContext.FundooNotes.FirstOrDefault(u => u.NotesId == id);
-                    archiveThisNote.Archieve = archiveNote;
-                    this.userContext.SaveChanges();
-                    message = "Note Archived";
-                    return message;
+                    if (note.Archieve == false)
+                    {
+                        note.Archieve = true;
+                        this.userContext.Entry(note).State = EntityState.Modified;
+                        this.userContext.SaveChanges();
+                        message = "Note Archived";
+                        return message;
+                    }
+                    if (note.Archieve == true)
+                    {
+                        note.Archieve = false;
+                        this.userContext.Entry(note).State = EntityState.Modified;
+                        this.userContext.SaveChanges();
+                        message = "Note Unarchived";
+                        return message;
+                    }
                 }
-                if (note == true)
-                {
-                    var unArchiveNote = this.userContext.FundooNotes.FirstOrDefault(x => x.NotesId == id).Archieve == false;
-                    var unArchiveThisNote = userContext.FundooNotes.FirstOrDefault(u => u.NotesId == id);
-                    unArchiveThisNote.Archieve = unArchiveNote;
-                    this.userContext.SaveChanges();
-                    message = "Note Unarchived";
-                    return message;
-                }
+
                 return message = "Unable to archive or unarchive note.";
             }
             catch (Exception ex)
