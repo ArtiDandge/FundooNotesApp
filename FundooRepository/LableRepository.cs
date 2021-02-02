@@ -1,18 +1,35 @@
-﻿using FundooModels;
-using FundooRepository.Context;
-using FundooRepository.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="LableRepository.cs" company="Bridgelabz">
+//   Copyright © 2021 Company="BridgeLabz"
+// </copyright>
+// <creator name="Dandge Arti Subhash"/>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace FundooRepository
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using FundooModels;
+    using FundooRepository.Context;
+    using FundooRepository.Interfaces;
+    using Microsoft.EntityFrameworkCore;
+
+    /// <summary>
+    /// Class LableRepository implements ILable interface
+    /// </summary>
     public class LableRepository : ILable
     {
+        /// <summary>
+        /// userContext field of type UserContext
+        /// </summary>
         private readonly UserContext userContext;
 
+        /// <summary>
+        ///  Initializes a new instance of the <see cref="LableRepository" /> class.
+        /// </summary>
+        /// <param name="userContext"></param>
         public LableRepository(UserContext userContext)
         {
             this.userContext = userContext;
