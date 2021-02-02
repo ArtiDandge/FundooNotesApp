@@ -264,7 +264,7 @@ namespace FundooRepository
                         note.Is_Trash = true;
                         this.userContext.Entry(note).State = EntityState.Modified;
                         this.userContext.SaveChanges();
-                        message = "Note Restored";
+                        message = "Note Trashed";
                         return message;
                     }
                     if (note.Is_Trash == true)
@@ -272,7 +272,7 @@ namespace FundooRepository
                         note.Is_Trash = false;
                         this.userContext.Entry(note).State = EntityState.Modified;
                         this.userContext.SaveChanges();
-                        message = "Note Trashed";
+                        message = "Note Restored";
                         return message;
                     }
                 }

@@ -16,19 +16,6 @@ namespace FundooRepository.Migrations
                 .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("FundooModels.LableModel", b =>
-                {
-                    b.Property<int>("LableId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Lable")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("LableId");
-
-                    b.ToTable("Lables");
-                });
 
             modelBuilder.Entity("FundooModels.NotesModel", b =>
                 {
