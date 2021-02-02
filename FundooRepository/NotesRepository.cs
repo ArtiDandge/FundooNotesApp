@@ -98,15 +98,18 @@ namespace FundooRepository
         {
             try
             {
-                if(id > 0)
+                var note = this.userContext.FundooNotes.Find(id);
+                if(note != null)
                 {
-                    var note = this.userContext.FundooNotes.Find(id);
-                    this.userContext.FundooNotes.Remove(note);
-                    this.userContext.SaveChangesAsync();
-                    return "Note Deleted Successfully";
+                    if(note.Is_Trash == true)
+                    {
+                        this.userContext.FundooNotes.Remove(note);
+                        this.userContext.SaveChanges();
+                        return "Note Deleted Successfully";
+                    }                   
                 }
 
-                return "Unable to delete this note. Please ensure Note id Correct.";
+                return "First trash a note then try to delete it. ";
             }
             catch(Exception ex)
             {
