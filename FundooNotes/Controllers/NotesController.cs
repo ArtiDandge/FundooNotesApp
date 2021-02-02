@@ -184,8 +184,8 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Controller Method call method ArchiveOrUnArchiveNote() method to Archive Or Unarchive the note
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
         [HttpPut]
         [Route("ArchiveOrUnArchiveNote")]
         public IActionResult ArchiveOrUnarchive(int id)
@@ -193,6 +193,31 @@ namespace FundooNotes.Controllers
             try
             {
                 var result = this.notes.ArchiveOrUnArchiveNote(id);
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = result });
+                }
+
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Controller method to Trash Or Restore a Note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        [HttpPut]
+        [Route("TrashOrRestoreNote")]
+        public IActionResult TrashOrRestoreNote(int id)
+        {
+            try
+            {
+                var result = this.notes.TrashOrRestoreNote(id);
                 if (result != null)
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = result });

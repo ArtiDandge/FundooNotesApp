@@ -65,5 +65,12 @@ namespace FundooManager.Interfaces
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         public string ArchiveOrUnArchiveNote(int id);
+
+        /// <summary>
+        /// Method Declaration to Trash or Restore a note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        public string TrashOrRestoreNote(int id);
     }
 }

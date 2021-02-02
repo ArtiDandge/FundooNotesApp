@@ -242,5 +242,44 @@ namespace FundooRepository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method to Trash Or Restore Note
+        /// </summary>
+        /// <param name="id">int id</param>
+        /// <returns>string message</returns>
+        public string TrashOrRestoreNote(int id)
+        {
+            try
+            {
+                string message;
+                var note = this.userContext.FundooNotes.Where(x => x.NotesId == id).SingleOrDefault();
+                if (note != null)
+                {
+                    if (note.Is_Trash == false)
+                    {
+                        note.Is_Trash = true;
+                        this.userContext.Entry(note).State = EntityState.Modified;
+                        this.userContext.SaveChanges();
+                        message = "Note Restored";
+                        return message;
+                    }
+                    if (note.Is_Trash == true)
+                    {
+                        note.Is_Trash = false;
+                        this.userContext.Entry(note).State = EntityState.Modified;
+                        this.userContext.SaveChanges();
+                        message = "Note Trashed";
+                        return message;
+                    }
+                }
+
+                return message = "Unable to Restore or Trash note.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

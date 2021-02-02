@@ -150,5 +150,23 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method to Trash or Restore a note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        public string TrashOrRestoreNote(int id)
+        {
+            try
+            {
+                var note = this.notes.TrashOrRestoreNote(id);
+                return note;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

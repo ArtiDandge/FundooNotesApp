@@ -59,10 +59,18 @@ namespace FundooRepository.Interfaces
         public string PinOrUnpinNote(int id);
 
         /// <summary>
-        /// Method declaration to Archive Or UnArchive Note to note
+        /// Method declaration to Archive Or UnArchive Note 
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         public string ArchiveOrUnArchiveNote(int id);
+
+        /// <summary>
+        /// Method Declaration to Trash or Restore a note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        public string TrashOrRestoreNote(int id);
+
     }
 }
