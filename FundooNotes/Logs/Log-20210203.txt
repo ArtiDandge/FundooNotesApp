@@ -50,3 +50,62 @@ System.InvalidOperationException: Unable to resolve service for type 'FundooMana
 2021-02-03T10:35:30.8493775+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
 2021-02-03T10:35:30.9046268+05:30  [INF] Hosting environment: "Development" (c3307c92)
 2021-02-03T10:35:30.9146045+05:30  [INF] Content root path: "C:\Users\HP\source\repos\FundooNotes\FundooNotes" (b5d60022)
+2021-02-03T12:18:14.3058650+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-02-03T12:18:14.3421509+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2021-02-03T12:18:14.3676757+05:30  [INF] Content root path: "C:\Users\HP\source\repos\FundooNotes\FundooNotes" (b5d60022)
+2021-02-03T14:01:21.9584582+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-02-03T14:01:22.0313390+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2021-02-03T14:01:22.0370085+05:30  [INF] Content root path: "C:\Users\HP\source\repos\FundooNotes\FundooNotes" (b5d60022)
+2021-02-03T14:05:37.2308032+05:30 80000020-0001-fd00-b63f-84710c7967bb [INF] The API for Adding new User has accessed (7a5c3d8f)
+2021-02-03T14:05:44.7695623+05:30 80000020-0001-fd00-b63f-84710c7967bb [INF] new User added successfully (dacf9157)
+2021-02-03T14:06:23.7231299+05:30 8000000e-0002-fc00-b63f-84710c7967bb [INF] The API for Adding new User has accessed (7a5c3d8f)
+2021-02-03T14:06:24.4085293+05:30 8000000e-0002-fc00-b63f-84710c7967bb [INF] new User added successfully (dacf9157)
+2021-02-03T14:13:06.7782927+05:30 80000014-0000-f600-b63f-84710c7967bb [ERR] Failed executing DbCommand ("702"ms) [Parameters=["@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""INSERT INTO `Lables` (`Lable`, `NoteId`, `UserId`)
+VALUES (@p0, @p1, @p2);
+SELECT `LableId`
+FROM `Lables`
+WHERE ROW_COUNT() = 1 AND `LableId` = LAST_INSERT_ID();" (627a98df)
+2021-02-03T14:13:08.0225833+05:30 80000014-0000-f600-b63f-84710c7967bb [ERR] An exception occurred in the database while saving changes for context type '"FundooRepository.Context.UserContext"'."
+""Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Cannot add or update a child row: a foreign key constraint fails (`fundoonotesapp`.`lables`, CONSTRAINT `FK_Lables_FundooNotes_NoteId` FOREIGN KEY (`NoteId`) REFERENCES `fundoonotes` (`NotesId`) ON DELETE CASCADE)
+ ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Cannot add or update a child row: a foreign key constraint fails (`fundoonotesapp`.`lables`, CONSTRAINT `FK_Lables_FundooNotes_NoteId` FOREIGN KEY (`NoteId`) REFERENCES `fundoonotes` (`NotesId`) ON DELETE CASCADE)
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in C:\projects\mysqlconnector\src\MySqlConnector\Core\ResultSet.cs:line 49
+   at MySql.Data.MySqlClient.MySqlDataReader.ActivateResultSet() in C:\projects\mysqlconnector\src\MySqlConnector\MySql.Data.MySqlClient\MySqlDataReader.cs:line 130
+   at MySql.Data.MySqlClient.MySqlDataReader.CreateAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in C:\projects\mysqlconnector\src\MySqlConnector\MySql.Data.MySqlClient\MySqlDataReader.cs:line 391
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(IReadOnlyList`1 commands, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in C:\projects\mysqlconnector\src\MySqlConnector\Core\CommandExecutor.cs:line 62
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior) in C:\projects\mysqlconnector\src\MySqlConnector\MySql.Data.MySqlClient\MySqlCommand.cs:line 217
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)" (170f029e)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Cannot add or update a child row: a foreign key constraint fails (`fundoonotesapp`.`lables`, CONSTRAINT `FK_Lables_FundooNotes_NoteId` FOREIGN KEY (`NoteId`) REFERENCES `fundoonotes` (`NotesId`) ON DELETE CASCADE)
+ ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Cannot add or update a child row: a foreign key constraint fails (`fundoonotesapp`.`lables`, CONSTRAINT `FK_Lables_FundooNotes_NoteId` FOREIGN KEY (`NoteId`) REFERENCES `fundoonotes` (`NotesId`) ON DELETE CASCADE)
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in C:\projects\mysqlconnector\src\MySqlConnector\Core\ResultSet.cs:line 49
+   at MySql.Data.MySqlClient.MySqlDataReader.ActivateResultSet() in C:\projects\mysqlconnector\src\MySqlConnector\MySql.Data.MySqlClient\MySqlDataReader.cs:line 130
+   at MySql.Data.MySqlClient.MySqlDataReader.CreateAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in C:\projects\mysqlconnector\src\MySqlConnector\MySql.Data.MySqlClient\MySqlDataReader.cs:line 391
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(IReadOnlyList`1 commands, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in C:\projects\mysqlconnector\src\MySqlConnector\Core\CommandExecutor.cs:line 62
+   at MySql.Data.MySqlClient.MySqlCommand.ExecuteDbDataReader(CommandBehavior behavior) in C:\projects\mysqlconnector\src\MySqlConnector\MySql.Data.MySqlClient\MySqlCommand.cs:line 217
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at FundooRepository.LableRepository.CreateLable(LableModel lable) in C:\Users\HP\source\repos\FundooNotes\FundooRepository\LableRepository.cs:line 51

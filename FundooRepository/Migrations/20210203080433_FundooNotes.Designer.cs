@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FundooRepository.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210202164507_Lables")]
-    partial class Lables
+    [Migration("20210203080433_FundooNotes")]
+    partial class FundooNotes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -17,6 +17,28 @@ namespace FundooRepository.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("FundooModels.CollaboratorsModel", b =>
+                {
+                    b.Property<int>("CollaboratorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("NoteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReceiverEmail")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("SenderEmail")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("CollaboratorId");
+
+                    b.HasIndex("NoteId");
+
+                    b.ToTable("Collaborators");
+                });
 
             modelBuilder.Entity("FundooModels.LableModel", b =>
                 {
@@ -103,7 +125,6 @@ namespace FundooRepository.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("UserLastName")
-                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("UserPassword")
@@ -113,6 +134,15 @@ namespace FundooRepository.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("FundooModels.CollaboratorsModel", b =>
+                {
+                    b.HasOne("FundooModels.NotesModel", "NotesModel")
+                        .WithMany()
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FundooModels.LableModel", b =>

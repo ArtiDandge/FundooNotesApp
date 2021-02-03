@@ -155,7 +155,7 @@ namespace FundooRepository
                                          join user in userContext.Users on lable.LableId equals user.UserId
                                          join notes in userContext.FundooNotes on lable.NoteId equals notes.NotesId
                                          where lable.Lable == lables.Lable
-                                         select notes.NotesId;
+                                         select notes;
                     var sdfsdf = userContext.FundooNotes.Where(x => x.Lable == lables.Lable);
                     result = sdfsdf;
                     return result;

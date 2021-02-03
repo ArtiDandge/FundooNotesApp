@@ -18,7 +18,7 @@ namespace FundooRepository.Migrations
 
             modelBuilder.Entity("FundooModels.CollaboratorsModel", b =>
                 {
-                    b.Property<int>("CollaboratorID")
+                    b.Property<int>("CollaboratorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -31,7 +31,7 @@ namespace FundooRepository.Migrations
                     b.Property<string>("SenderEmail")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.HasKey("CollaboratorID");
+                    b.HasKey("CollaboratorId");
 
                     b.HasIndex("NoteId");
 
@@ -123,7 +123,6 @@ namespace FundooRepository.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("UserLastName")
-                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("UserPassword")

@@ -9,7 +9,7 @@ namespace FundooModels
     public class CollaboratorsModel
     {
         [Key]
-        public int CollaboratorID { get; set; }
+        public int CollaboratorId { get; set; }
 
         [RegularExpression("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", ErrorMessage = "E-mail is not valid. Please Entet valid email")]
         public string SenderEmail { get; set; }
