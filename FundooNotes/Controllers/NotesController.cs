@@ -185,7 +185,7 @@ namespace FundooNotes.Controllers
         /// Controller Method call method ArchiveOrUnArchiveNote() method to Archive Or Unarchive the note
         /// </summary>
         /// <param name="id">note id</param>
-        /// <returns>string message</returns>
+        /// <returns>response data</returns>
         [HttpPut]
         [Route("ArchiveOrUnArchiveNote")]
         public IActionResult ArchiveOrUnarchive(int id)
@@ -236,7 +236,7 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="reminder">reminder parameter for note</param>
-        /// <returns>string message</returns>
+        /// <returns>response data</returns>
         [HttpPut]
         [Route("setReminder")]
         public IActionResult SetReminder(int id, string reminder)
@@ -254,6 +254,30 @@ namespace FundooNotes.Controllers
             catch (Exception ex)
             {
                 return this.NotFound(new ResponseModel<NotesModel>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Controller method to get all nots for which reminder is set
+        /// </summary>
+        /// <returns>response data</returns>
+        [HttpGet]
+        [Route("GetAllNotesWhosReminderIsSet")]
+        public IActionResult GetNotesWithReminders()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result = this.notes.GetAllNotesWhosReminderIsSet();
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Note who's reminder is set are retrieved successfully !", Data = result });
+                }
+
+                return this.BadRequest(new ResponseModel<IEnumerable<NotesModel>>() { Status = false, Message = "Unable to retrieve Note who's reminder is set." });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<IEnumerable<NotesModel>>() { Status = false, Message = ex.Message });
             }
         }
     }

@@ -80,5 +80,11 @@ namespace FundooManager.Interfaces
         /// <param name="reminder">reminder parameter for note</param>
         /// <returns>string message</returns>
         public string SetReminder(int id, string reminder);
+
+        /// <summary>
+        /// Method declaration to get all notes for which reminder has set
+        /// </summary>
+        /// <returns>notes for which reminder has set</returns>
+        public IEnumerable<NotesModel> GetAllNotesWhosReminderIsSet();
     }
 }

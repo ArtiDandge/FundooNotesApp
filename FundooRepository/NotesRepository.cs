@@ -312,6 +312,30 @@ namespace FundooRepository
             {
                 throw new Exception(ex.Message);
             }
-        }        
+        }
+
+        /// <summary>
+        /// Method to get all notes for which reminder has set
+        /// </summary>
+        /// <returns>notes for which reminder has set</returns>
+        public IEnumerable<NotesModel> GetAllNotesWhosReminderIsSet()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result;
+                result = this.userContext.FundooNotes.Where(x=> x.Reminder.Length > 0);
+                if(result != null)
+                {
+                    return result;
+                }
+                result = null;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }
