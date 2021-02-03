@@ -6,9 +6,9 @@ using FundooModels;
 
 namespace FundooRepository.Context
 {
-    public class UserContext: DbContext
+    public class UserContext : DbContext
     {
-        public UserContext(DbContextOptions options):base(options)
+        public UserContext(DbContextOptions options) : base(options)
         {
 
         }
@@ -19,6 +19,7 @@ namespace FundooRepository.Context
 
         public DbSet<LableModel> Lables { get; set; }
 
+        public DbSet<CollaboratorsModel> Collaborators { get; set;}
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
