@@ -8,5 +8,6 @@ namespace FundooRepository.Interfaces
     public interface ICollaborator
     {
         public string AddCollaborator(CollaboratorsModel collaborators);
+        public string DeleteCollaborator(int id);
     }
 }

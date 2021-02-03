@@ -42,5 +42,30 @@ namespace FundooRepository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method to Remove collaborator
+        /// </summary>
+        /// <param name="id">collaborator id</param>
+        /// <returns>string message</returns>
+        public string DeleteCollaborator(int id)
+        {
+            try
+            {
+                var collaborator = this.userContext.Collaborators.Find(id);
+                if(collaborator != null)
+                {
+                    this.userContext.Collaborators.Remove(collaborator);
+                    this.userContext.SaveChangesAsync();
+                    return "Collaborator Deleted Successfully !";
+                }               
+
+                return "Unable to delete this Collaborator.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

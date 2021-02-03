@@ -21,5 +21,11 @@ namespace FundooManager.Manager
             string message = this.collaborator.AddCollaborator(collaborator);
             return message;
         }
+
+        public string DeleteCollaborator(int id)
+        {
+            string message = this.collaborator.DeleteCollaborator(id);
+            return message; 
+        }
     }
 }
