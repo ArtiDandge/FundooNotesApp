@@ -73,7 +73,7 @@ namespace FundooRepository.Interfaces
         public string TrashOrRestoreNote(int id);
 
         /// <summary>
-        /// Method declaration to set reminder for perticulat note
+        /// Method declaration to set reminder for perticular note
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="reminder">reminder parameter for note</param>
@@ -85,5 +85,13 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <returns>notes for which reminder has set</returns>
         public IEnumerable<NotesModel> GetAllNotesWhosReminderIsSet();
+
+        /// <summary>
+        /// Method declaration to unset reminder for perticular note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        public string UnSetReminder(int id);
+
     }
 }

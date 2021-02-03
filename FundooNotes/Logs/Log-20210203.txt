@@ -213,3 +213,6 @@ Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updatin
    at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
    at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
    at FundooRepository.NotesRepository.AddNewNote(NotesModel note) in C:\Users\HP\source\repos\FundooNotes\FundooRepository\NotesRepository.cs:line 51
+2021-02-03T15:54:43.9038666+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-02-03T15:54:43.9193308+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2021-02-03T15:54:43.9247187+05:30  [INF] Content root path: "C:\Users\HP\source\repos\FundooNotes\FundooNotes" (b5d60022)

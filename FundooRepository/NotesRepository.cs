@@ -337,5 +337,32 @@ namespace FundooRepository
             }
         }
 
+        /// <summary>
+        /// Method to set reminder for note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        public string UnSetReminder(int id)
+        {
+            try
+            {
+                string message;
+                var note = this.userContext.FundooNotes.Find(id);
+                if (note != null)
+                {
+                    note.Reminder = null;
+                    this.userContext.Entry(note).State = EntityState.Modified;
+                    this.userContext.SaveChanges();
+                    message = "You have unset Reminder this Note !";
+                    return message;
+                }
+
+                return message = "Error While unsetting reminder for this note";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

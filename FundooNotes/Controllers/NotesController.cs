@@ -246,14 +246,14 @@ namespace FundooNotes.Controllers
                 var message = this.notes.SetReminder(id, reminder);
                 if (message.Equals("Reminder is set for this Note Successfully !"))
                 {
-                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = message });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = message, Data = reminder });
                 }
 
-                return this.BadRequest(new ResponseModel<NotesModel>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = message });
             }
             catch (Exception ex)
             {
-                return this.NotFound(new ResponseModel<NotesModel>() { Status = false, Message = ex.Message });
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
 
@@ -278,6 +278,31 @@ namespace FundooNotes.Controllers
             catch (Exception ex)
             {
                 return this.NotFound(new ResponseModel<IEnumerable<NotesModel>>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Controller method to get all nots for which reminder is set
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>response data</returns>
+        [HttpPut]
+        [Route("unsetReminder")]
+        public IActionResult UnSetReminder(int id)
+        {
+            try
+            {
+                var message = this.notes.UnSetReminder(id);
+                if (message.Equals("You have unset Reminder this Note !"))
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = message, Data = id});
+                }
+
+                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = message });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<int>() { Status = false, Message = ex.Message });
             }
         }
     }

@@ -86,5 +86,12 @@ namespace FundooManager.Interfaces
         /// </summary>
         /// <returns>notes for which reminder has set</returns>
         public IEnumerable<NotesModel> GetAllNotesWhosReminderIsSet();
+
+        /// <summary>
+        /// Method declaration to unset reminder for perticular note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        public string UnSetReminder(int id);
     }
 }

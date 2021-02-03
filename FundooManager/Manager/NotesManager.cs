@@ -205,5 +205,22 @@ namespace FundooManager.Manager
             }
         }
 
+        /// <summary>
+        /// Method to unset reminder for note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>string message</returns>
+        public string UnSetReminder(int id)
+        {
+            try
+            {
+                string message = this.notes.UnSetReminder(id);
+                return message;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
