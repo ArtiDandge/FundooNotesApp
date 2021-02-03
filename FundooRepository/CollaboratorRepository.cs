@@ -67,5 +67,30 @@ namespace FundooRepository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method to Retrieve All collaborators
+        /// </summary>
+        /// <returns>existing collaborators</returns>
+        public IEnumerable<CollaboratorsModel> GetCollaborators()
+        {
+            try
+            {
+                IEnumerable<CollaboratorsModel> result;
+                var collaborators = this.userContext.Collaborators;
+                if (collaborators != null)
+                {
+                    result = collaborators;
+                    return result;
+                }
+
+                result = null;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

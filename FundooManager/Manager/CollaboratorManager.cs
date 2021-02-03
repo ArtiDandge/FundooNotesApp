@@ -27,5 +27,11 @@ namespace FundooManager.Manager
             string message = this.collaborator.DeleteCollaborator(id);
             return message; 
         }
+
+        public IEnumerable<CollaboratorsModel> GetCollaborators()
+        {
+            IEnumerable<CollaboratorsModel> result = this.collaborator.GetCollaborators();
+            return result;
+        }
     }
 }

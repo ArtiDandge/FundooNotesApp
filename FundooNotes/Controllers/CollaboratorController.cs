@@ -57,5 +57,24 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<int>() { Status = false, Message = ex.Message });
             }
         }
+
+        [HttpGet]
+        public IActionResult RetrieveAllCollaborator()
+        {
+            try
+            {
+                var result = this.collaboratorManager.GetCollaborators();
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<CollaboratorsModel>>() { Status = true, Message = "Collaborators Retrieved Successfully !", Data = result });
+                }
+
+                return this.BadRequest(new ResponseModel<IEnumerable<CollaboratorsModel>>() { Status = false, Message = "Unable to retrieve Collaborators" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<IEnumerable<CollaboratorsModel>>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

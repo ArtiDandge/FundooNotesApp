@@ -9,5 +9,6 @@ namespace FundooManager.Interfaces
     {
         public string AddCollaborator(CollaboratorsModel collaborators);
         public string DeleteCollaborator(int id);
+        public IEnumerable<CollaboratorsModel> GetCollaborators();
     }
 }
