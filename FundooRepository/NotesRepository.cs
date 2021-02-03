@@ -364,5 +364,34 @@ namespace FundooRepository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method to add color for note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="color">color name</param>
+        /// <returns>string message</returns>
+        public string AddColor(int id, string color)
+        {
+            try
+            {
+                string message;
+                var note = this.userContext.FundooNotes.Find(id);
+                if (note != null)
+                {
+                    note.Color = color;
+                    this.userContext.Entry(note).State = EntityState.Modified;
+                    this.userContext.SaveChanges();
+                    message = "Color added Successfully for note !";
+                    return message;
+                }
+
+                return message = "Error While adding color for this note";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

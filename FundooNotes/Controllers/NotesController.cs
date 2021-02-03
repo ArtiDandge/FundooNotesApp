@@ -305,5 +305,31 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<int>() { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Controller method to add color for note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="color">color name</param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("addColor")]
+        public IActionResult ChangeColor(int id, string color)
+        {
+            try
+            {
+                var message = this.notes.ChangeColor(id, color);
+                if (message.Equals("New Color has set to this note !"))
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = message, Data = color });
+                }
+
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = message });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

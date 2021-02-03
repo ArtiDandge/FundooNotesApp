@@ -93,5 +93,13 @@ namespace FundooManager.Interfaces
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         public string UnSetReminder(int id);
+
+        /// <summary>
+        /// Method declaration to add color for note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="color">color name</param>
+        /// <returns></returns>
+        public string AddColor(int id, string color);
     }
 }

@@ -222,5 +222,24 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method to add color for note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="color">color name</param>
+        /// <returns></returns>
+        public string AddColor(int id, string color)
+        {
+            try
+            {
+                string message = this.notes.AddColor(id, color);
+                return message;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
