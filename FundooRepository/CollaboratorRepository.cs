@@ -1,10 +1,46 @@
-﻿using System;
+﻿using FundooModels;
+using FundooRepository.Context;
+using FundooRepository.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace FundooRepository
 {
-    class CollaboratorRepository
+    public class CollaboratorRepository : ICollaborator
     {
+        private readonly UserContext userContext;
+
+        public CollaboratorRepository(UserContext userContext)
+        {
+            this.userContext = userContext;
+        }
+
+        /// <summary>
+        /// Method to Add collaborators to note
+        /// </summary>
+        /// <param name="collaborators"></param>
+        /// <returns>string message</returns>
+        public string AddCollaborator(CollaboratorsModel collaborators)
+        {
+            try
+            {
+                string message;
+                if (collaborators != null)
+                {
+                    this.userContext.Collaborators.Add(collaborators);
+                    this.userContext.SaveChanges();
+                    message = "New Collaborator added Successfully !";
+                    return message;
+                }
+
+                message = "Failed to Add New Collaborator to Database";
+                return message;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

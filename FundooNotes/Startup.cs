@@ -60,6 +60,8 @@ namespace FundooNotes
             services.AddTransient<INotesManager, NotesManager>();
             services.AddTransient<ILable, LableRepository>();
             services.AddTransient<ILableManager, LableManager>();
+            services.AddTransient<ICollaboratorManager, CollaboratorManager>();
+            services.AddTransient<ICollaborator, CollaboratorRepository>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = "JwtBearer";
