@@ -13,6 +13,7 @@ namespace FundooManager.Manager
     using FundooManager.Interfaces;
     using FundooModels;
     using FundooRepository.Interfaces;
+    using Microsoft.AspNetCore.Http;
 
     /// <summary>
     /// NotesManager class implements INotesManager interface
@@ -229,11 +230,30 @@ namespace FundooManager.Manager
         /// <param name="id">note id</param>
         /// <param name="color">color name</param>
         /// <returns></returns>
-        public string AddColor(int id, string color)
+        public string ChangeColor(int id, string color)
         {
             try
             {
-                string message = this.notes.AddColor(id, color);
+                string message = this.notes.ChangeColor(id, color);
+                return message;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Method to add image for note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="image">selected image</param>
+        /// <returns>string message</returns>
+        public string AddImage(int id, IFormFile image)
+        {
+            try
+            {
+                string message = this.notes.AddImage(id, image);
                 return message;
             }
             catch (Exception ex)

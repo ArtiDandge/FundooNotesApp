@@ -13,6 +13,7 @@ namespace FundooNotes.Controllers
     using System.Threading.Tasks;
     using FundooManager.Interfaces;
     using FundooModels;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -311,7 +312,7 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="color">color name</param>
-        /// <returns></returns>
+        /// <returns>response data</returns>
         [HttpPut]
         [Route("addColor")]
         public IActionResult ChangeColor(int id, string color)
@@ -331,5 +332,32 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Controller method to add image for note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="image">selected image</param>
+        /// <returns>response data</returns>
+        [HttpPut]
+        [Route("addImage")]
+        public IActionResult AddImage(int id, IFormFile image)
+        {
+            try
+            {
+                var message = this.notes.AddImage(id, image);
+                if (message.Equals("Image has Added for this Note !"))
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = message, Data = id});
+                }
+
+                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = message });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<int>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }
+

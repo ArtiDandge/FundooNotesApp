@@ -11,9 +11,12 @@ namespace FundooRepository
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using FundooModels;
     using FundooRepository.Context;
     using FundooRepository.Interfaces;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>
@@ -371,7 +374,7 @@ namespace FundooRepository
         /// <param name="id">note id</param>
         /// <param name="color">color name</param>
         /// <returns>string message</returns>
-        public string AddColor(int id, string color)
+        public string ChangeColor(int id, string color)
         {
             try
             {
@@ -382,11 +385,49 @@ namespace FundooRepository
                     note.Color = color;
                     this.userContext.Entry(note).State = EntityState.Modified;
                     this.userContext.SaveChanges();
-                    message = "Color added Successfully for note !";
+                    message = "New Color has set to this note !";
                     return message;
                 }
 
-                return message = "Error While adding color for this note";
+                return message = "Error While changing color for this note";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Method to set image as background for a note 
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="image">selected image</param>
+        /// <returns>string message</returns>
+        [Obsolete]
+        public string AddImage(int id, IFormFile image)
+        {
+            try
+            {
+                string message;
+                var note = this.userContext.FundooNotes.Find(id);
+                if (note != null)
+                {
+                    Account account = new Account("dlxz1uigg", "781671399249553", "FCkWWrUiNxSyJH3VWXqrXf6r-uk");
+                    var path = image.OpenReadStream();
+                    Cloudinary cloudinary = new Cloudinary(account);
+                    ImageUploadParams uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(image.FileName, path)
+                    };
+                    var uploadResult = cloudinary.Upload(uploadParams);
+                    note.Image = uploadResult.Uri.AbsolutePath;
+                    this.userContext.Entry(note).State = EntityState.Modified;
+                    this.userContext.SaveChanges();
+                    message = "Image has Added for this Note !";
+                    return message;
+                }
+
+                return message = "Error While Adding image for this note";
             }
             catch (Exception ex)
             {
