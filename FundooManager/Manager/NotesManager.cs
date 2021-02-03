@@ -168,5 +168,24 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Method calls SetReminder() method to set reminder for note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="reminder">reminder parameter for note</param>
+        /// <returns>string message</returns>
+        public string SetReminder(int id, string reminder)
+        {
+            try
+            {
+                string message = this.notes.SetReminder(id, reminder);
+                return message;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

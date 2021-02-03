@@ -72,5 +72,12 @@ namespace FundooRepository.Interfaces
         /// <returns>string message</returns>
         public string TrashOrRestoreNote(int id);
 
+        /// <summary>
+        /// Method declaration to set reminder for perticulat note
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="reminder">reminder parameter for note</param>
+        /// <returns>string message</returns>
+        public string SetReminder(int id, string reminder);
     }
 }

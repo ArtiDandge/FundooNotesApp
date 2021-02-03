@@ -109,3 +109,6 @@ Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updatin
    at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
    at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
    at FundooRepository.LableRepository.CreateLable(LableModel lable) in C:\Users\HP\source\repos\FundooNotes\FundooRepository\LableRepository.cs:line 51
+2021-02-03T14:41:15.3808137+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-02-03T14:41:15.4006747+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2021-02-03T14:41:15.4070175+05:30  [INF] Content root path: "C:\Users\HP\source\repos\FundooNotes\FundooNotes" (b5d60022)

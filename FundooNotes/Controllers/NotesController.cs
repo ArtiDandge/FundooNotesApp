@@ -230,5 +230,31 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Controller method to set reminder for controller
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <param name="reminder">reminder parameter for note</param>
+        /// <returns>string message</returns>
+        [HttpPut]
+        [Route("setReminder")]
+        public IActionResult SetReminder(int id, string reminder)
+        {
+            try
+            {
+                var message = this.notes.SetReminder(id, reminder);
+                if (message.Equals("Reminder is set for this Note Successfully !"))
+                {
+                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = message });
+                }
+
+                return this.BadRequest(new ResponseModel<NotesModel>() { Status = false, Message = message });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<NotesModel>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }
