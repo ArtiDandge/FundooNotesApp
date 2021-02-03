@@ -15,6 +15,9 @@ namespace FundooModels
         [ForeignKey("RegistrationModel")]
         public int UserId { get; set; }
         public virtual RegistrationModel RegistrationModel { get; set; }
+
+        [ForeignKey("NotesModel")]
         public int NoteId { get; set; }
+        public virtual NotesModel NotesModel { get; set; }
     }
 }

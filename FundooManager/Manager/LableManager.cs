@@ -109,7 +109,7 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="id">lable id</param>
         /// <returns></returns>
-        public IEnumerable<LableModel> GetLableById(int id)
+        public IEnumerable<NotesModel> GetLableById(int id)
         {
             try
             {
@@ -120,6 +120,6 @@ namespace FundooManager.Manager
             {
                 throw new Exception(ex.Message);
             }
-        }
+        }        
     }
 }

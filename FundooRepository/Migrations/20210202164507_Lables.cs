@@ -21,12 +21,23 @@ namespace FundooRepository.Migrations
                 {
                     table.PrimaryKey("PK_Lables", x => x.LableId);
                     table.ForeignKey(
+                        name: "FK_Lables_FundooNotes_NoteId",
+                        column: x => x.NoteId,
+                        principalTable: "FundooNotes",
+                        principalColumn: "NotesId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Lables_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Lables_NoteId",
+                table: "Lables",
+                column: "NoteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lables_UserId",

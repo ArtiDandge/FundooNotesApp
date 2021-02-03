@@ -134,20 +134,21 @@ namespace FundooNotes.Controllers
         [HttpGet]
         [Route("GetLableById")]
         public IActionResult GetLableById(int id)
+        
         {
             try
             {
                 var result = this.lable.GetLableById(id);
                 if (result != null)
                 {
-                    return this.Ok(new ResponseModel<IEnumerable<LableModel>>() { Status = true, Message = "Lable Retrieved", Data = result });
+                    return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Lable Retrieved", Data = result });
                 }
 
-                return this.BadRequest(new ResponseModel<IEnumerable<LableModel>>() { Status = false, Message = "Unable to Retrieve Lable" });
+                return this.BadRequest(new ResponseModel<IEnumerable<NotesModel>>() { Status = false, Message = "Unable to Retrieve Lable" });
             }
             catch (Exception ex)
             {
-                return this.NotFound(new ResponseModel<IEnumerable<LableModel>>() { Status = false, Message = ex.Message });
+                return this.NotFound(new ResponseModel<IEnumerable<NotesModel>>() { Status = false, Message = ex.Message });
             }
         }
     }

@@ -143,15 +143,21 @@ namespace FundooRepository
         /// </summary>
         /// <param name="id">lable id</param>
         /// <returns>lable details</returns>
-        public IEnumerable<LableModel> GetLableById(int id)
+        public IEnumerable<NotesModel> GetLableById(int id)
         {
             try
             {
-                IEnumerable<LableModel> result;
-                var lables = this.userContext.Lables.Where(x => x.LableId == id);
+                IEnumerable<NotesModel> result;
+                var lables = this.userContext.Lables.Find(id);                
                 if (lables != null)
                 {
-                    result = lables;
+                    var matchingLables = from lable in userContext.Lables
+                                         join user in userContext.Users on lable.LableId equals user.UserId
+                                         join notes in userContext.FundooNotes on lable.NoteId equals notes.NotesId
+                                         where lable.Lable == lables.Lable
+                                         select notes.NotesId;
+                    var sdfsdf = userContext.FundooNotes.Where(x => x.Lable == lables.Lable);
+                    result = sdfsdf;
                     return result;
                 }
 

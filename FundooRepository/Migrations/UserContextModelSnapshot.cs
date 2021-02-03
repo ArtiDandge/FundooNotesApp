@@ -33,6 +33,8 @@ namespace FundooRepository.Migrations
 
                     b.HasKey("LableId");
 
+                    b.HasIndex("NoteId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Lables");
@@ -113,6 +115,12 @@ namespace FundooRepository.Migrations
 
             modelBuilder.Entity("FundooModels.LableModel", b =>
                 {
+                    b.HasOne("FundooModels.NotesModel", "NotesModel")
+                        .WithMany()
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FundooModels.RegistrationModel", "RegistrationModel")
                         .WithMany()
                         .HasForeignKey("UserId")
