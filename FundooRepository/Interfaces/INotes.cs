@@ -81,6 +81,12 @@ namespace FundooRepository.Interfaces
         public string TrashOrRestoreNote(int id);
 
         /// <summary>
+        /// Method declaration to get all notes which are in trash
+        /// </summary>
+        /// <returns>all notes from trash</returns>
+        public IEnumerable<NotesModel> GetAllNotesaFromTrash();
+
+        /// <summary>
         /// Method declaration to set reminder for perticular note
         /// </summary>
         /// <param name="id">note id</param>

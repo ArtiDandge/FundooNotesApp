@@ -257,6 +257,30 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
+        /// API to Retrieve all notes from database
+        /// </summary>
+        /// <returns>response data</returns>
+        [HttpGet]
+        [Route("getAllNotesaFromTrash")]
+        public IActionResult GetAllNotesaFromTrash()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result = this.notes.GetAllNotesaFromTrash();
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Archived Notes retrieved Successfully", Data = result });
+                }
+
+                return this.BadRequest(new ResponseModel<IEnumerable<NotesModel>>() { Status = false, Message = "Unable to retrieve notes." });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<IEnumerable<NotesModel>>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Controller method to set reminder for controller
         /// </summary>
         /// <param name="id">note id</param>

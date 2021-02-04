@@ -276,7 +276,6 @@ namespace FundooRepository
             }
         }
 
-
         /// <summary>
         /// Method to Trash Or Restore Note
         /// </summary>
@@ -309,6 +308,33 @@ namespace FundooRepository
                 }
 
                 return message = "Unable to Restore or Trash note.";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Method to get all Archived notes
+        /// </summary>
+        /// <returns>all archived notes</returns>
+        public IEnumerable<NotesModel> GetAllNotesaFromTrash()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result;
+                IEnumerable<NotesModel> note = this.userContext.FundooNotes.Where(x => x.Is_Trash == true);
+                if (note != null)
+                {
+                    result = note;
+                }
+                else
+                {
+                    result = null;
+                }
+
+                return result;
             }
             catch (Exception ex)
             {

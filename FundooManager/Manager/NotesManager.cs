@@ -188,6 +188,23 @@ namespace FundooManager.Manager
         }
 
         /// <summary>
+        /// Method declaration to get all notes which are in trash
+        /// </summary>
+        /// <returns>all notes from trash</returns>
+        public IEnumerable<NotesModel> GetAllNotesaFromTrash()
+        {
+            try
+            {
+                var note = this.notes.GetAllNotesaFromTrash();
+                return note;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Method calls SetReminder() method to set reminder for note
         /// </summary>
         /// <param name="id">note id</param>

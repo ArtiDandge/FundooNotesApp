@@ -80,7 +80,13 @@ namespace FundooManager.Interfaces
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
         public string TrashOrRestoreNote(int id);
-        
+
+        /// <summary>
+        /// Method declaration to get all notes which are in trash
+        /// </summary>
+        /// <returns>all notes from trash</returns>
+        public IEnumerable<NotesModel> GetAllNotesaFromTrash();
+
         /// <summary>
         /// Method declaration to set reminder for perticulat note
         /// </summary>
