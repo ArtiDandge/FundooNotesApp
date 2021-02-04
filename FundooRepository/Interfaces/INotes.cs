@@ -42,8 +42,8 @@ namespace FundooRepository.Interfaces
         /// Method declaration to update a note
         /// </summary>
         /// <param name="note">note parameter</param>
-        /// <returns>string message</returns>
-        public string UpdateNote(NotesModel note);
+        /// <returns>boolean result</returns>
+        public bool UpdateNote(NotesModel note);
 
         /// <summary>
         /// Method declaration to get a note by its Id

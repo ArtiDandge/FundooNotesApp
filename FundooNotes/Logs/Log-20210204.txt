@@ -7,3 +7,6 @@
 2021-02-04T17:34:07.8156984+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
 2021-02-04T17:34:07.8350313+05:30  [INF] Hosting environment: "Development" (c3307c92)
 2021-02-04T17:34:07.8397196+05:30  [INF] Content root path: "C:\Users\HP\source\repos\FundooNotes\FundooNotes" (b5d60022)
+2021-02-04T18:06:37.7746114+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-02-04T18:06:37.7937311+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2021-02-04T18:06:37.8040581+05:30  [INF] Content root path: "C:\Users\HP\source\repos\FundooNotes\FundooNotes" (b5d60022)

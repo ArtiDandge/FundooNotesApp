@@ -91,13 +91,13 @@ namespace FundooManager.Manager
         /// Method to Call UpdateNote() method to update a note 
         /// </summary>
         /// <param name="note">note id</param>
-        /// <returns>string message</returns>
-        public string UpdateNote(NotesModel note)
+        /// <returns>boolean result</returns>
+        public bool UpdateNote(NotesModel note)
         {
             try
             {
-                string message = this.notes.UpdateNote(note);
-                return message;
+                bool result = this.notes.UpdateNote(note);
+                return result;
             }
             catch (Exception ex)
             {

@@ -127,21 +127,22 @@ namespace FundooRepository
         /// Method to Update Note 
         /// </summary>
         /// <param name="note">note parameter of type NotesModel</param>
-        /// <returns>string message</returns>
-        public string UpdateNote(NotesModel note)
+        /// <returns>boolean result</returns>
+        public bool UpdateNote(NotesModel note)
         {
             try
             {
-                string message;
+                bool result;
                 if (note.NotesId > 0)
                 {
                     this.userContext.Entry(note).State = EntityState.Modified;
                     this.userContext.SaveChanges();
-                    message = "Note updated Successfully !";
-                    return message;
+                    result = true;
+                    return true;
                 }
 
-                return message = "Error While updating note";
+                result = false;
+                return result; 
             }
             catch (Exception ex)
             {

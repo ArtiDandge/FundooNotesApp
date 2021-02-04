@@ -118,13 +118,13 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var message = this.notes.UpdateNote(note);
-                if (message.Equals("Note updated Successfully !"))
+                var result = this.notes.UpdateNote(note);
+                if (result == true)
                 {
-                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = message, Data = note });
+                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = "Note updated Successfully !", Data = note });
                 }
 
-                return this.BadRequest(new ResponseModel<NotesModel>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<NotesModel>() { Status = false, Message = "Error While updating note" });
             }
             catch (Exception ex)
             {
