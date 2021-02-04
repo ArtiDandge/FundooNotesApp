@@ -43,21 +43,21 @@ namespace FundooRepository
         /// </summary>
         /// <param name="note">note parameter of type NotesModel</param>
         /// <returns>string message</returns>
-        public string AddNewNote(NotesModel note)
+        public bool AddNewNote(NotesModel note)
         {
             try
             {
-                string message;
+                bool result;
                 if (note != null)
                 {
                     this.userContext.FundooNotes.Add(note);
                     this.userContext.SaveChanges();
-                    message = "New Note added Successfully !";
-                    return message;
+                    result = true;
+                    return result;
                 }
 
-                message = "Failed to Add New Note to Database"; 
-                return message;
+                result = false; 
+                return result;
             }
             catch(Exception ex)
             {
@@ -96,11 +96,12 @@ namespace FundooRepository
         /// Method to Remove Note from Database using id
         /// </summary>
         /// <param name="id">notes integer id</param>
-        /// <returns>string message</returns>
-        public string RemoveNote(int id)
+        /// <returns>boolean result</returns>
+        public bool RemoveNote(int id)
         {
             try
             {
+                bool result;
                 var note = this.userContext.FundooNotes.Find(id);
                 if(note != null)
                 {
@@ -108,11 +109,13 @@ namespace FundooRepository
                     {
                         this.userContext.FundooNotes.Remove(note);
                         this.userContext.SaveChanges();
-                        return "Note Deleted Successfully";
+                        result = true;
+                        return result;
                     }                   
                 }
 
-                return "First trash a note then try to delete it. ";
+                result = false;
+                return result;
             }
             catch(Exception ex)
             {

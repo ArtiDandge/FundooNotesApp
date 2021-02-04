@@ -47,13 +47,13 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var message = this.notes.AddNewNote(notes);
-                if (message.Equals("New Note added Successfully !"))
+                var is_successed = this.notes.AddNewNote(notes);
+                if (is_successed == true)
                 {
-                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = message, Data = notes });
+                    return this.Ok(new ResponseModel<NotesModel>() { Status = true, Message = "New Note added Successfully!", Data = notes });
                 }
 
-                return this.BadRequest(new ResponseModel<NotesModel>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<NotesModel>() { Status = false, Message = "Failed to Add New Note to Database" });
             }
             catch(Exception ex)
             {
@@ -94,13 +94,13 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var message = this.notes.RemoveNote(id);
-                if (message.Equals("Note Deleted Successfully !"))
+                var result = this.notes.RemoveNote(id);
+                if (result == true)
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = message, Data = id });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = "Note Deleted Successfully", Data = id });
                 }
 
-                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = "First trash a note then try to delete it. " });
             }
             catch(Exception ex)
             {

@@ -38,11 +38,18 @@ namespace FundooManager.Manager
         /// Method to Call AddNewNote() method to create new note
         /// </summary>
         /// <param name="note">note parameter</param>
-        /// <returns>string message</returns>
-        public string AddNewNote(NotesModel note)
+        /// <returns>boolean result</returns>
+        public bool AddNewNote(NotesModel note)
         {
-            string message = this.notes.AddNewNote(note);
-            return message;
+            try
+            {
+                bool result = this.notes.AddNewNote(note);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -67,11 +74,11 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>string note message</returns>
-        public string RemoveNote(int id)
+        public bool RemoveNote(int id)
         {
             try
             {
-                string note = this.notes.RemoveNote(id);
+                bool note = this.notes.RemoveNote(id);
                 return note;
             }
             catch (Exception ex)

@@ -23,7 +23,7 @@ namespace FundooManager.Interfaces
         /// </summary>
         /// <param name="note">note parameter</param>
         /// <returns>string message</returns>
-        public string AddNewNote(NotesModel note);
+        public bool AddNewNote(NotesModel note);
 
         /// <summary>
         /// Method declaration to retrieve all note
@@ -35,8 +35,8 @@ namespace FundooManager.Interfaces
         /// Method declaration to remove a note
         /// </summary>
         /// <param name="id">note id</param>
-        /// <returns>string message</returns>
-        public string RemoveNote(int id);
+        /// <returns>boolean result</returns>
+        public bool RemoveNote(int id);
 
         /// <summary>
         /// Method declaration to update a note
