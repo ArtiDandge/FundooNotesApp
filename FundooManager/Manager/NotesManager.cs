@@ -251,7 +251,7 @@ namespace FundooManager.Manager
         /// Method to unset reminder for note
         /// </summary>
         /// <param name="id">note id</param>
-        /// <returns>string message</returns>
+        /// <returns>boolean result</returns>
         public bool UnSetReminder(int id)
         {
             try

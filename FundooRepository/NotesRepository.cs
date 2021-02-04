@@ -403,7 +403,7 @@ namespace FundooRepository
         /// Method to set reminder for note
         /// </summary>
         /// <param name="id">note id</param>
-        /// <returns>string message</returns>
+        /// <returns>boolean result</returns>
         public bool UnSetReminder(int id)
         {
             try

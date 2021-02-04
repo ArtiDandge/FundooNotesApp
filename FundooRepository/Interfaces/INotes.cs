@@ -104,7 +104,7 @@ namespace FundooRepository.Interfaces
         /// Method declaration to unset reminder for perticular note
         /// </summary>
         /// <param name="id">note id</param>
-        /// <returns>string message</returns>
+        /// <returns>boolean result</returns>
         public bool UnSetReminder(int id);
 
         /// <summary>
