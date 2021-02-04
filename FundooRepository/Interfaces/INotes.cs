@@ -91,8 +91,8 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="reminder">reminder parameter for note</param>
-        /// <returns>string message</returns>
-        public string SetReminder(int id, string reminder);
+        /// <returns>boolean result</returns>
+        public bool SetReminder(int id, string reminder);
 
         /// <summary>
         /// Method declaration to get all notes for which reminder has set

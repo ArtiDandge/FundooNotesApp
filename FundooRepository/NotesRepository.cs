@@ -351,23 +351,24 @@ namespace FundooRepository
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="reminder">reminder parameter for note</param>
-        /// <returns>string message</returns>
-        public string SetReminder(int id, string reminder)
+        /// <returns>boolean result</returns>
+        public bool SetReminder(int id, string reminder)
         {
             try
             {
-                string message;
+                bool result;
                 var note = this.userContext.FundooNotes.Find(id);
                 if(note != null)
                 {
                     note.Reminder = reminder;
                     this.userContext.Entry(note).State = EntityState.Modified;
                     this.userContext.SaveChanges();
-                    message = "Reminder is set for this Note Successfully !";
-                    return message;
-                }                
+                    result = true;
+                    return result;
+                }
 
-                return message = "Error While setting reminder for this note";
+                result = false;
+                return result;
             }
             catch (Exception ex)
             {

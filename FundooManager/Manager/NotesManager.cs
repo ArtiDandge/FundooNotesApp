@@ -216,13 +216,13 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="reminder">reminder parameter for note</param>
-        /// <returns>string message</returns>
-        public string SetReminder(int id, string reminder)
+        /// <returns>boolean result</returns>
+        public bool SetReminder(int id, string reminder)
         {
             try
             {
-                string message = this.notes.SetReminder(id, reminder);
-                return message;
+                bool result = this.notes.SetReminder(id, reminder);
+                return result;
             }
             catch (Exception ex)
             {

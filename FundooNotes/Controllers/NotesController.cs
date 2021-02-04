@@ -292,13 +292,13 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var message = this.notes.SetReminder(id, reminder);
-                if (message.Equals("Reminder is set for this Note Successfully !"))
+                var result = this.notes.SetReminder(id, reminder);
+                if (result == true)
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = message, Data = reminder });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Reminder is set for this Note Successfully !", Data = reminder });
                 }
 
-                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Error While setting reminder for this note" });
             }
             catch (Exception ex)
             {
