@@ -113,15 +113,15 @@ namespace FundooManager.Interfaces
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="color">color name</param>
-        /// <returns></returns>
-        public string ChangeColor(int id, string color);
+        /// <returns>boolean result</returns>
+        public bool ChangeColor(int id, string color);
 
         /// <summary>
         /// Method to add image for note
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="image">selected image</param>
-        /// <returns>string message</returns>
-        public string AddImage(int id, IFormFile image);
+        /// <returns>boolean result</returns>
+        public bool AddImage(int id, IFormFile image);
     }
 }

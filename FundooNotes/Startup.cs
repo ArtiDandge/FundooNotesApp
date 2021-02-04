@@ -13,6 +13,7 @@ namespace FundooNotes
     using FundooRepository;
     using FundooRepository.Context;
     using FundooRepository.Interfaces;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace FundooNotes
     using NLog;
     using System;
     using System.IO;
+    using System.Text;
 
     /// <summary>
     /// Startup. cs class. This class is an entry point for asp.net project
@@ -62,26 +64,49 @@ namespace FundooNotes
             services.AddTransient<ILableManager, LableManager>();
             services.AddTransient<ICollaboratorManager, CollaboratorManager>();
             services.AddTransient<ICollaborator, CollaboratorRepository>();
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = "JwtBearer";
-                options.DefaultChallengeScheme = "JwtBearer";
-            })
-            .AddJwtBearer("JwtBearer", jwtOptions =>
-            {
-                jwtOptions.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    IssuerSigningKey = UserRegistration.SIGNING_KEY,
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateIssuerSigningKey = true,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.FromMinutes(5)
-                };
-            });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "FundooNotes API", Version = "1.0" });
+                c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "Fundoo", Version = "v1.0", Description = "Fundoo Application" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+               {
+                   {
+                       new OpenApiSecurityScheme
+                       {
+                           Reference = new OpenApiReference
+                           {
+                               Type=ReferenceType.SecurityScheme,
+                               Id="Bearer"
+                           }
+                       },
+                       new string[]{}
+                   }
+             });
+            });
+            var key = Encoding.UTF8.GetBytes(Configuration["Key"]);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = false;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                };
             });
         }
 
@@ -111,9 +136,9 @@ namespace FundooNotes
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

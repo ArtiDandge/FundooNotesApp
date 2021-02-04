@@ -13,12 +13,14 @@ namespace FundooNotes.Controllers
     using System.Threading.Tasks;
     using FundooManager.Interfaces;
     using FundooModels;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// NotesController class for Notes CRUD implementation
     /// </summary>
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class NotesController : ControllerBase
@@ -370,10 +372,10 @@ namespace FundooNotes.Controllers
                 var message = this.notes.ChangeColor(id, color);
                 if (message.Equals("New Color has set to this note !"))
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = message, Data = color });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "New Color has set to this note !", Data = color });
                 }
 
-                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Error While changing color for this note" });
             }
             catch (Exception ex)
             {
@@ -396,10 +398,10 @@ namespace FundooNotes.Controllers
                 var message = this.notes.AddImage(id, image);
                 if (message.Equals("Image has Added for this Note !"))
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = message, Data = id});
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = "Image has Added for this Note !", Data = id});
                 }
 
-                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = "Error While Adding image for this note" });
             }
             catch (Exception ex)
             {

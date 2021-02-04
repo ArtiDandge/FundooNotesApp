@@ -269,14 +269,14 @@ namespace FundooManager.Manager
         /// Method to add color for note
         /// </summary>
         /// <param name="id">note id</param>
-        /// <param name="color">color name</param>
-        /// <returns></returns>
-        public string ChangeColor(int id, string color)
+        /// <param name="image">selected image</param>
+        /// <returns>boolean result</returns>
+        public bool ChangeColor(int id, string color)
         {
             try
             {
-                string message = this.notes.ChangeColor(id, color);
-                return message;
+                bool result = this.notes.ChangeColor(id, color);
+                return result;
             }
             catch (Exception ex)
             {
@@ -289,13 +289,13 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="image">selected image</param>
-        /// <returns>string message</returns>
-        public string AddImage(int id, IFormFile image)
+        /// <returns>boolean result</returns>
+        public bool AddImage(int id, IFormFile image)
         {
             try
             {
-                string message = this.notes.AddImage(id, image);
-                return message;
+                bool result = this.notes.AddImage(id, image);
+                return result;
             }
             catch (Exception ex)
             {

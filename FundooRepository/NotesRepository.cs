@@ -433,23 +433,24 @@ namespace FundooRepository
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="color">color name</param>
-        /// <returns>string message</returns>
-        public string ChangeColor(int id, string color)
+        /// <returns>boolean result</returns>
+        public bool ChangeColor(int id, string color)
         {
             try
             {
-                string message;
+                bool result;
                 var note = this.userContext.FundooNotes.Find(id);
                 if (note != null)
                 {
                     note.Color = color;
                     this.userContext.Entry(note).State = EntityState.Modified;
                     this.userContext.SaveChanges();
-                    message = "New Color has set to this note !";
-                    return message;
+                    result = true;
+                    return result;
                 }
 
-                return message = "Error While changing color for this note";
+                result = false;
+                return result;
             }
             catch (Exception ex)
             {
@@ -462,13 +463,13 @@ namespace FundooRepository
         /// </summary>
         /// <param name="id">note id</param>
         /// <param name="image">selected image</param>
-        /// <returns>string message</returns>
+        /// <returns>boolean result</returns>
         [Obsolete]
-        public string AddImage(int id, IFormFile image)
+        public bool AddImage(int id, IFormFile image)
         {
             try
             {
-                string message;
+                bool result;
                 var note = this.userContext.FundooNotes.Find(id);
                 if (note != null)
                 {
@@ -483,11 +484,12 @@ namespace FundooRepository
                     note.Image = uploadResult.Uri.AbsolutePath;
                     this.userContext.Entry(note).State = EntityState.Modified;
                     this.userContext.SaveChanges();
-                    message = "Image has Added for this Note !";
-                    return message;
+                    result = true;
+                    return result;
                 }
 
-                return message = "Error While Adding image for this note";
+                result = false;
+                return result;
             }
             catch (Exception ex)
             {

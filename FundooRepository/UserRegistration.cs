@@ -36,7 +36,7 @@ namespace FundooRepository
         /// <summary>
         /// SECRETE KEY string
         /// </summary>
-        private const string SECRET_KEY = "This is Secret key for valid user authentication";
+        private const string SECRET_KEY = "SuperSecretKey@345fghhhhhhhhhhhhhhhhhhhhhhhhhhhhhfggggggg";
 
         /// <summary>
         /// Field userContext of type UserContext
