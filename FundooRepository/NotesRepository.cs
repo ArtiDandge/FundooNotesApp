@@ -18,6 +18,7 @@ namespace FundooRepository
     using FundooRepository.Interfaces;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
 
     /// <summary>
     /// NotesRepository class implements INotes Interface
@@ -29,13 +30,16 @@ namespace FundooRepository
         /// </summary>
         private readonly UserContext userContext;
 
+        private readonly IConfiguration configuration;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NotesRepository" /> class.
         /// </summary>
         /// <param name="userContext">userContext parameter of type UserContext</param>
-        public NotesRepository(UserContext userContext)
+        public NotesRepository(UserContext userContext, IConfiguration configuration)
         {
             this.userContext = userContext;
+            this.configuration = configuration;
         }
 
         /// <summary>
@@ -473,7 +477,11 @@ namespace FundooRepository
                 var note = this.userContext.FundooNotes.Find(id);
                 if (note != null)
                 {
-                    Account account = new Account("dlxz1uigg", "781671399249553", "FCkWWrUiNxSyJH3VWXqrXf6r-uk");
+                    Account account = new Account(
+                        configuration["CloudinaryAccount:CloudName"],
+                        configuration["CloudinaryAccount:ApiKey"],
+                        configuration["CloudinaryAccount:ApiSecret"]
+                    );
                     var path = image.OpenReadStream();
                     Cloudinary cloudinary = new Cloudinary(account);
                     ImageUploadParams uploadParams = new ImageUploadParams()

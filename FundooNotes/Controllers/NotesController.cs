@@ -395,10 +395,10 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var message = this.notes.AddImage(id, image);
-                if (message.Equals("Image has Added for this Note !"))
+                var result = this.notes.AddImage(id, image);
+                if (result == true)
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = "Image has Added for this Note !", Data = id});
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = "Image has Added for this Note Successfully!", Data = id});
                 }
 
                 return this.BadRequest(new ResponseModel<int>() { Status = false, Message = "Error While Adding image for this note" });
