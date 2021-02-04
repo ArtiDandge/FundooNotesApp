@@ -250,6 +250,34 @@ namespace FundooRepository
         }
 
         /// <summary>
+        /// Method to get all Archived notes
+        /// </summary>
+        /// <returns>all archived notes</returns>
+        public IEnumerable<NotesModel> GetAllArchivedNotes()
+        {
+            try
+            {
+                IEnumerable<NotesModel> result;
+                IEnumerable<NotesModel> note = this.userContext.FundooNotes.Where(x=> x.Archieve == true);
+                if (note != null)
+                {
+                    result = note;
+                }
+                else
+                {
+                    result = null;
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+        /// <summary>
         /// Method to Trash Or Restore Note
         /// </summary>
         /// <param name="id">int id</param>

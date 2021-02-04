@@ -67,6 +67,13 @@ namespace FundooManager.Interfaces
         /// <returns>string message</returns>
         public string ArchiveOrUnArchiveNote(int id);
 
+
+        /// <summary>
+        /// Method declaration to get all notes which are archived
+        /// </summary>
+        /// <returns>archived notes</returns>
+        public IEnumerable<NotesModel> GetAllArchivedNotes();
+
         /// <summary>
         /// Method Declaration to Trash or Restore a note
         /// </summary>

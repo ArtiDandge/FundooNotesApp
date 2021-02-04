@@ -153,6 +153,23 @@ namespace FundooManager.Manager
         }
 
         /// <summary>
+        /// Method to get all archived notes
+        /// </summary>
+        /// <returns>archived notes</returns>
+        public IEnumerable<NotesModel> GetAllArchivedNotes()
+        {
+            try
+            {
+                var note = this.notes.GetAllArchivedNotes();
+                return note;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Method to Trash or Restore a note
         /// </summary>
         /// <param name="id">note id</param>
