@@ -252,12 +252,12 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
-        public string UnSetReminder(int id)
+        public bool UnSetReminder(int id)
         {
             try
             {
-                string message = this.notes.UnSetReminder(id);
-                return message;
+                bool result = this.notes.UnSetReminder(id);
+                return result;
             }
             catch (Exception ex)
             {

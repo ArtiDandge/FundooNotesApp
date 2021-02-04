@@ -105,7 +105,7 @@ namespace FundooRepository.Interfaces
         /// </summary>
         /// <param name="id">note id</param>
         /// <returns>string message</returns>
-        public string UnSetReminder(int id);
+        public bool UnSetReminder(int id);
 
         /// <summary>
         /// Method declaration to add color for note

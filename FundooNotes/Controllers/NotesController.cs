@@ -341,13 +341,13 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var message = this.notes.UnSetReminder(id);
-                if (message.Equals("You have unset Reminder this Note !"))
+                var result = this.notes.UnSetReminder(id);
+                if (result == true)
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = message, Data = id});
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = "You have unset Reminder this Note !", Data = id});
                 }
 
-                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = "Error While unsetting reminder for this note" });
             }
             catch (Exception ex)
             {
