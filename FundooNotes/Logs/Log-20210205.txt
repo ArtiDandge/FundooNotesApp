@@ -33,3 +33,6 @@
 2021-02-05T13:32:29.6882720+05:30 8000001d-0001-fd00-b63f-84710c7967bb [INF] User Logged Login Successfull! (eb681eda)
 2021-02-05T13:33:51.3653487+05:30 8000000b-0000-fc00-b63f-84710c7967bb [INF] The API for Reset Password has accessed (795d9b65)
 2021-02-05T13:34:15.4998987+05:30 8000000b-0000-fc00-b63f-84710c7967bb [INF] Password has reset successfully (934365ae)
+2021-02-05T14:05:29.3738819+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-02-05T14:05:29.3915789+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2021-02-05T14:05:29.3966666+05:30  [INF] Content root path: "C:\Users\HP\source\repos\FundooNotes\FundooNotes" (b5d60022)

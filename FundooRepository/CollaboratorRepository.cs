@@ -20,22 +20,22 @@ namespace FundooRepository
         /// Method to Add collaborators to note
         /// </summary>
         /// <param name="collaborators"></param>
-        /// <returns>string message</returns>
-        public string AddCollaborator(CollaboratorsModel collaborators)
+        /// <returns>boolean result</returns>
+        public bool AddCollaborator(CollaboratorsModel collaborators)
         {
             try
             {
-                string message;
+                bool result;
                 if (collaborators != null)
                 {
                     this.userContext.Collaborators.Add(collaborators);
                     this.userContext.SaveChanges();
-                    message = "New Collaborator added Successfully !";
-                    return message;
+                    result = true;
+                    return result; ;
                 }
 
-                message = "Failed to Add New Collaborator to Database";
-                return message;
+                result = false;
+                return result;
             }
             catch (Exception ex)
             {
@@ -47,20 +47,23 @@ namespace FundooRepository
         /// Method to Remove collaborator
         /// </summary>
         /// <param name="id">collaborator id</param>
-        /// <returns>string message</returns>
-        public string DeleteCollaborator(int id)
+        /// <returns>boolean result</returns>
+        public bool DeleteCollaborator(int id)
         {
             try
             {
+                bool result;
                 var collaborator = this.userContext.Collaborators.Find(id);
                 if(collaborator != null)
                 {
                     this.userContext.Collaborators.Remove(collaborator);
                     this.userContext.SaveChangesAsync();
-                    return "Collaborator Deleted Successfully !";
-                }               
+                    result = true;
+                    return result;
+                }
 
-                return "Unable to delete this Collaborator.";
+                result = false;
+                return result;
             }
             catch (Exception ex)
             {

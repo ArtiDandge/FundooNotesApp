@@ -16,16 +16,16 @@ namespace FundooManager.Manager
             this.collaborator = collaborator;
         }
 
-        public string AddCollaborator(CollaboratorsModel collaborator)
+        public bool AddCollaborator(CollaboratorsModel collaborator)
         {
-            string message = this.collaborator.AddCollaborator(collaborator);
-            return message;
+            bool result = this.collaborator.AddCollaborator(collaborator);
+            return result;
         }
 
-        public string DeleteCollaborator(int id)
+        public bool DeleteCollaborator(int id)
         {
-            string message = this.collaborator.DeleteCollaborator(id);
-            return message; 
+            bool result = this.collaborator.DeleteCollaborator(id);
+            return result; 
         }
 
         public IEnumerable<CollaboratorsModel> GetCollaborators()

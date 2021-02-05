@@ -49,13 +49,13 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var message = this.collaboratorManager.AddCollaborator(collaboraters);
-                if (message.Equals("New Collaborator added Successfully !"))
+                var result = this.collaboratorManager.AddCollaborator(collaboraters);
+                if (result == true)
                 {
-                    return this.Ok(new ResponseModel<CollaboratorsModel>() { Status = true, Message = message, Data = collaboraters });
+                    return this.Ok(new ResponseModel<CollaboratorsModel>() { Status = true, Message = "New Collaborator added Successfully !", Data = collaboraters });
                 }
 
-                return this.BadRequest(new ResponseModel<CollaboratorsModel>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<CollaboratorsModel>() { Status = false, Message = "Failed to Add New Collaborator to Database" });
             }
             catch (Exception ex)
             {
@@ -74,13 +74,13 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var message = this.collaboratorManager.DeleteCollaborator(id);
-                if (message.Equals("Collaborator Deleted Successfully !"))
+                var result = this.collaboratorManager.DeleteCollaborator(id);
+                if (result == true)
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = message, Data = id });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = "Collaborator Deleted Successfully !", Data = id });
                 }
 
-                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = "Unable to delete this Collaborator." });
             }
             catch (Exception ex)
             {

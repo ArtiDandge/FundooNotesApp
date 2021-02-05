@@ -7,8 +7,8 @@ namespace FundooManager.Interfaces
 {
     public interface ICollaboratorManager
     {
-        public string AddCollaborator(CollaboratorsModel collaborators);
-        public string DeleteCollaborator(int id);
+        public bool AddCollaborator(CollaboratorsModel collaborators);
+        public bool DeleteCollaborator(int id);
         public IEnumerable<CollaboratorsModel> GetCollaborators();
     }
 }
