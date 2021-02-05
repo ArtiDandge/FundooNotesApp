@@ -45,6 +45,7 @@ namespace FundooNotes.Controllers
         /// <param name="notes">notes parameter</param>
         /// <returns>response data</returns>
         [HttpPost]
+        [Route("CreateNewNote")]
         public IActionResult Notes([FromBody] NotesModel notes)
         {
             try
@@ -68,6 +69,7 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <returns>response data</returns>
         [HttpGet]
+        [Route("RetrieveAllNotes")]
         public IActionResult GetAllNotes()
         {
             try
@@ -92,6 +94,7 @@ namespace FundooNotes.Controllers
         /// <param name="id">note id</param>
         /// <returns>response data</returns>
         [HttpDelete]
+        [Route("RemoveNoteById/{id}")]
         public IActionResult RemoveNoteById(int id)
         {
             try
@@ -116,6 +119,7 @@ namespace FundooNotes.Controllers
         /// <param name="note">NotesModel note parameter</param>
         /// <returns>response data</returns>
         [HttpPut]
+        [Route("UpdateNote")]
         public IActionResult UpdateNote([FromBody] NotesModel note)
         {
             try
@@ -214,7 +218,7 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <returns>response data</returns>
         [HttpGet]
-        [Route("getAllArchivedNotes")]
+        [Route("GetAllArchivedNotes")]
         public IActionResult GetAllArchivedNotes()
         {
             try
@@ -263,7 +267,7 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <returns>response data</returns>
         [HttpGet]
-        [Route("getAllNotesaFromTrash")]
+        [Route("GetAllNotesaFromTrash")]
         public IActionResult GetAllNotesaFromTrash()
         {
             try
@@ -289,7 +293,7 @@ namespace FundooNotes.Controllers
         /// <param name="reminder">reminder parameter for note</param>
         /// <returns>response data</returns>
         [HttpPut]
-        [Route("setReminder")]
+        [Route("SetReminder")]
         public IActionResult SetReminder(int id, string reminder)
         {
             try
@@ -338,7 +342,7 @@ namespace FundooNotes.Controllers
         /// <param name="id">note id</param>
         /// <returns>response data</returns>
         [HttpPut]
-        [Route("unsetReminder")]
+        [Route("UnsetReminder")]
         public IActionResult UnSetReminder(int id)
         {
             try
@@ -364,7 +368,7 @@ namespace FundooNotes.Controllers
         /// <param name="color">color name</param>
         /// <returns>response data</returns>
         [HttpPut]
-        [Route("addColor")]
+        [Route("AddColor")]
         public IActionResult ChangeColor(int id, string color)
         {
             try
@@ -390,7 +394,7 @@ namespace FundooNotes.Controllers
         /// <param name="image">selected image</param>
         /// <returns>response data</returns>
         [HttpPut]
-        [Route("addImage")]
+        [Route("AddImage")]
         public IActionResult AddImage(int id, IFormFile image)
         {
             try

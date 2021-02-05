@@ -468,7 +468,6 @@ namespace FundooRepository
         /// <param name="id">note id</param>
         /// <param name="image">selected image</param>
         /// <returns>boolean result</returns>
-        [Obsolete]
         public bool AddImage(int id, IFormFile image)
         {
             try
@@ -489,7 +488,7 @@ namespace FundooRepository
                         File = new FileDescription(image.FileName, path)
                     };
                     var uploadResult = cloudinary.Upload(uploadParams);
-                    note.Image = uploadResult.Uri.AbsolutePath;
+                    note.Image = uploadResult.Url.ToString();
                     this.userContext.Entry(note).State = EntityState.Modified;
                     this.userContext.SaveChanges();
                     result = true;
