@@ -18,36 +18,36 @@ namespace FundooRepository.Interfaces
         /// AddNewUser() Method Declaration
         /// </summary>
         /// <param name="user">user parameter for this method</param>
-        /// <returns>string message</returns>
-        public string AddNewUser(RegistrationModel user);
+        /// <returns>boolean result</returns>
+        public bool AddNewUser(RegistrationModel user);
 
         /// <summary>
         /// Login Method Declaration  
         /// </summary>
         /// <param name="email">user email parameter</param>
         /// <param name="password">user password parameter</param>
-        /// <returns>string message</returns>
+        /// <returns>string result</returns>
         public string Login(string email, string password);
 
         /// <summary>
         /// Forgot password method Declaration
         /// </summary>
         /// <param name="email">user string</param>
-        /// <returns>string message</returns>
-        public string ForgotPassword(string email);
+        /// <returns>boolean result</returns>
+        public bool ForgotPassword(string email);
 
-      /// <summary>
-      /// Reset Password Method
-      /// </summary>
-      /// <param name="resetPassword">Reset Password</param>
-      /// <returns>string message</returns>
-        public string ResetPassword(ResetPasswordModel resetPassword);
+        /// <summary>
+        /// Reset Password Method
+        /// </summary>
+        /// <param name="resetPassword">Reset Password</param>
+        /// <returns>boolean result</returns>
+        public bool ResetPassword(ResetPasswordModel resetPassword);
 
         /// <summary>
         /// Method to Generate Token
         /// </summary>
         /// <param name="UserEmail">User Email</param>
-        /// <returns>string token</returns>
+        /// <returns>string result</returns>
         public string GenerateToken(string UserEmail);
     }
 }

@@ -56,23 +56,23 @@ namespace FundooRepository
         /// Method to Add new User to the Database
         /// </summary>
         /// <param name="user">user parameter for this method</param>
-        /// <returns>string message</returns>
-        public string AddNewUser(RegistrationModel user)
+        /// <returns>boolean result</returns>
+        public bool AddNewUser(RegistrationModel user)
         {
             try
             {
-                string message;
+                bool result;
                 if (user != null)
                 {
                     user.UserPassword = encryptPassword(user.UserPassword);
                     this.userContext.Users.Add(user);
                     this.userContext.SaveChanges();
-                    message = "New User Added Successfully !";
-                    return message;
+                    result = true;
+                    return result;
                 }
 
-                message = "Unable to Add New User";
-                return message;
+                result = false;
+                return result;
             }
             catch(ArgumentNullException ex)
             {
@@ -122,7 +122,7 @@ namespace FundooRepository
                 ConnectionMultiplexer connection = ConnectionMultiplexer.Connect("127.0.0.1:6379");
                 IDatabase database = connection.GetDatabase();
                 database.StringSet(key: "Email", email);
-                var redisValue = database.StringGet("Email");
+                database.StringGet("Email");
 
                 if (login != null)
                 {
@@ -171,11 +171,12 @@ namespace FundooRepository
         /// Method to Implement Forgot password functionality using SMTP and MSMQ .
         /// </summary>
         /// <param name="email">user email</param>
-        /// <returns>string message</returns>
-        public string ForgotPassword(string email)
+        /// <returns>boolean result</returns>
+        public bool ForgotPassword(string email)
         {
             try
             {
+                bool result;
                 string user;
                 string mailSubject = "Link to reset your FundooNotes App Credentials";
                 var userCheck = this.userContext.Users.SingleOrDefault(x => x.UserEmail == email);
@@ -200,12 +201,12 @@ namespace FundooRepository
                         Smtp.Send(mailMessage);
                     }
 
-                    return "Link has sent to the given email address to reset the password";
+                    result = true;
+                    return result; 
                 }
-                else
-                {
-                    return "Unable to sent link to given email address. This Email doesn't exist in database.";
-                }
+               
+                result = false;
+                return result;
             }
             catch (Exception ex)
             {
@@ -217,25 +218,26 @@ namespace FundooRepository
         /// Method to reset old user password with new one.
         /// </summary>
         /// <param name="resetPassword">variable of type ResetPasswordModel</param>
-        /// <returns>string message</returns>
-        public string ResetPassword(ResetPasswordModel resetPassword)
+        /// <returns>boolean result</returns>
+        public bool ResetPassword(ResetPasswordModel resetPassword)
         {
             try
             {
+                bool result;
                 string encodedPassword = encryptPassword(resetPassword.UserPassword);
-                var userPassword = this.userContext.Users
-                                .SingleOrDefault(x => x.UserEmail == resetPassword.UserEmail);
+                var userPassword = this.userContext.Users.SingleOrDefault(x => x.UserEmail == resetPassword.UserEmail);
                 if (userPassword != null)
                 {
                     userPassword.UserPassword = encodedPassword;
                     userContext.Entry(userPassword).State = EntityState.Modified;
                     userContext.SaveChanges();
-                    return "Password Reset Successfull ! ";
+
+                    result = true;
+                    return result;
                 }
-                else
-                {
-                    return "Failed to Reset Password. Given Email doesn't exist in database.";
-                }
+                
+                result = false;
+                return result;
             }
             catch (Exception ex)
             {

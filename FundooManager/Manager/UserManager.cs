@@ -37,13 +37,13 @@ namespace FundooManager.Manager
         /// Method to call AddNewUser Method which belongs to IUserRegistration interface
         /// </summary>
         /// <param name="user">user parameter</param>
-        /// <returns>string message</returns>
-        public string AddNewUser(RegistrationModel user)
+        /// <returns>boolean result</returns>
+        public bool AddNewUser(RegistrationModel user)
         {
             try
             {
-                string message = this.userRegistration.AddNewUser(user);
-                return message;
+                bool result = this.userRegistration.AddNewUser(user);
+                return result;
             }
             catch (Exception ex)
             {
@@ -56,13 +56,13 @@ namespace FundooManager.Manager
         /// </summary>
         /// <param name="email">user email</param>
         /// <param name="password">user password</param>
-        /// <returns>string message</returns>
+        /// <returns>string result</returns>
         public string Login(string email, string password)
         {
             try
             {
-                string message = this.userRegistration.Login(email, password);
-                return message;
+                 string result = this.userRegistration.Login(email, password);
+                return result;
             }
             catch (Exception ex)
             {
@@ -74,13 +74,13 @@ namespace FundooManager.Manager
         /// Forgot password Method 
         /// </summary>
         /// <param name="email">user email</param>
-        /// <returns>string message</returns>
-        public string ForgotPassword(string email)
+        /// <returns>boolean result</returns>
+        public bool ForgotPassword(string email)
         {
             try
             {
-                string message = this.userRegistration.ForgotPassword(email);
-                return message;
+                 bool result = this.userRegistration.ForgotPassword(email);
+                return result;
             }
             catch (Exception ex)
             {
@@ -92,13 +92,13 @@ namespace FundooManager.Manager
         /// Reset Password Method 
         /// </summary>
         /// <param name="resetPassword">variable of type ResetPasswordModel</param>
-        /// <returns>string message</returns>
-        public string ResetPassword(ResetPasswordModel resetPassword)
+        /// <returns>boolean result</returns>
+        public bool ResetPassword(ResetPasswordModel resetPassword)
         {
             try
             {
-                string message = this.userRegistration.ResetPassword(resetPassword);
-                return message;
+                 bool result = this.userRegistration.ResetPassword(resetPassword);
+                return result;
             }
             catch (Exception ex)
             {

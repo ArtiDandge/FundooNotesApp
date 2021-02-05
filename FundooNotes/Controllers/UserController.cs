@@ -57,12 +57,12 @@ namespace FundooNotes.Controllers
             {
                 var result = this.manager.AddNewUser(user);
                 _logger.LogInformation("new User added successfully");
-                if (result.Equals("SUCCESS"))
+                if (result == true)
                 {
-                    return this.Ok(new ResponseModel<RegistrationModel>(){Status = true, Message = result, Data = user });
+                    return this.Ok(new ResponseModel<RegistrationModel>(){Status = true, Message = "New User Added Successfully !", Data = user });
                 }
 
-                return this.BadRequest(new ResponseModel<RegistrationModel>(){ Status = false, Message = result });
+                return this.BadRequest(new ResponseModel<RegistrationModel>(){ Status = false, Message = "Unable to Add New User" });
             }
             catch (Exception ex)
             {
@@ -112,14 +112,14 @@ namespace FundooNotes.Controllers
             try
             {
                 _logger.LogInformation("The API for Forgot Password has accessed");
-                var message = this.manager.ForgotPassword(email);
-                if (message.Equals("Link has sent to the given email address to reset the password"))
+                var result = this.manager.ForgotPassword(email);
+                if (result == true)
                 {
                     _logger.LogInformation("Link has sent to given gmail to reset password");
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = message, Data = email });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Link has sent to the given email address to reset the password", Data = email });
                 }
 
-                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Unable to sent link to given email address. This Email doesn't exist in database." });
             }
             catch (Exception ex)
             {
@@ -140,14 +140,14 @@ namespace FundooNotes.Controllers
             try
             {
                 _logger.LogInformation("The API for Reset Password has accessed");
-                var message = this.manager.ResetPassword(resetPassword);
-                if (message.Equals("Password Reset Successfull ! "))
+                var result = this.manager.ResetPassword(resetPassword);
+                if (result == true)
                 {
                     _logger.LogInformation("Password has reset successfully");
-                    return this.Ok(new ResponseModel<ResetPasswordModel>() { Status = true, Message = message, Data = resetPassword });
+                    return this.Ok(new ResponseModel<ResetPasswordModel>() { Status = true, Message = "Password Reset Successfull ! ", Data = resetPassword });
                 }
                 
-                return this.BadRequest(new { Status = false, Message = message });
+                return this.BadRequest(new { Status = false, Message = "Failed to Reset Password. Given Email doesn't exist in database." });
             }
             catch (Exception ex)
             {
