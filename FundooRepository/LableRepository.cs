@@ -38,23 +38,23 @@ namespace FundooRepository
         /// <summary>
         /// Method to Create/Add New Lable
         /// </summary>
-        /// <param name="lable"></param>
-        /// <returns></returns>
-        public string CreateLable(LableModel lable)
+        /// <param name="lable">lable parameter</param>
+        /// <returns>boolean result</returns>
+        public bool CreateLable(LableModel lable)
         {
             try
             {
-                string message;
+                bool result;
                 if (lable != null)
                 {
                     this.userContext.Lables.Add(lable);
                     this.userContext.SaveChanges();
-                    message = "New Lable added Successfully !";
-                    return message;
+                    result = true;
+                    return result;
                 }
 
-                message = "Failed to Add New Lable to Database";
-                return message;
+                result = false;
+                return result;
             }
             catch (Exception ex)
             {
@@ -91,21 +91,22 @@ namespace FundooRepository
         /// Method to update lable
         /// </summary>
         /// <param name="lable">lable parameter</param>
-        /// <returns>string message</returns>
-        public string UpdateLable(LableModel lable)
+        /// <returns>boolean result</returns>
+        public bool UpdateLable(LableModel lable)
         {
             try
             {
-                string message;
+                bool result;
                 if (lable.LableId > 0)
                 {
                     this.userContext.Entry(lable).State = EntityState.Modified;
                     this.userContext.SaveChanges();
-                    message = "Lable updated Successfully !";
-                    return message;
+                    result = true;
+                    return result;
                 }
 
-                return message = "Error While updating lable";
+                result = false;
+                return result;
             }
             catch (Exception ex)
             {
@@ -117,20 +118,23 @@ namespace FundooRepository
         /// Method to Delete Lable
         /// </summary>
         /// <param name="id">lable id</param>
-        /// <returns>string message</returns>
-        public string DeleteLable(int id)
+        /// <returns>boolean result</returns>
+        public bool DeleteLable(int id)
         {
             try
             {
-                if (id > 0)
+                bool result;
+                var lable = this.userContext.Lables.Where(x => x.LableId == id).SingleOrDefault();
+                if(lable != null)
                 {
-                    var lable = this.userContext.Lables.Find(id);
                     this.userContext.Lables.Remove(lable);
                     this.userContext.SaveChangesAsync();
-                    return "Lable Deleted Successfully !";
+                    result = true;
+                    return result;
                 }
 
-                return "Unable to delete this Lable.";
+                result = false;
+                return result;
             }
             catch (Exception ex)
             {
@@ -148,16 +152,16 @@ namespace FundooRepository
             try
             {
                 IEnumerable<NotesModel> result;
-                var lables = this.userContext.Lables.Find(id);                
-                if (lables != null)
+                var lable = this.userContext.Lables.Where(x => x.LableId == id).SingleOrDefault();                
+                if (lable != null)
                 {
-                    var matchingLables = from lable in userContext.Lables
+                    var matchingLables = from newlable in userContext.Lables
                                          join user in userContext.Users on lable.LableId equals user.UserId
                                          join notes in userContext.FundooNotes on lable.NoteId equals notes.NotesId
-                                         where lable.Lable == lables.Lable
-                                         select notes;
-                    var sdfsdf = userContext.FundooNotes.Where(x => x.Lable == lables.Lable);
-                    result = sdfsdf;
+                                         where lable.Lable == lable.Lable
+                                         select notes.NotesId;
+                    var lables = userContext.FundooNotes.Where(x => x.Lable == lable.Lable);
+                    result = lables;
                     return result;
                 }
 

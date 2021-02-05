@@ -37,13 +37,13 @@ namespace FundooManager.Manager
         /// Method to create new lable
         /// </summary>
         /// <param name="lable">lable parameter</param>
-        /// <returns>string message</returns>
-        public string CreateLable(LableModel lable)
+        /// <returns>boolean result</returns>
+        public bool CreateLable(LableModel lable)
         {
             try
             {
-                string message = this.lable.CreateLable(lable);
-                return message;
+                bool result = this.lable.CreateLable(lable);
+                return result;
             }
             catch (Exception ex)
             {
@@ -72,13 +72,13 @@ namespace FundooManager.Manager
         /// Method to Update lable
         /// </summary>
         /// <param name="lable">lable parameter</param>
-        /// <returns>string message</returns>
-        public string UpdateLable(LableModel lable)
+        /// <returns>boolean result</returns>
+        public bool UpdateLable(LableModel lable)
         {
             try
             {
-                string message = this.lable.UpdateLable(lable);
-                return message;
+                bool result = this.lable.UpdateLable(lable);
+                return result;
             }
             catch (Exception ex)
             {
@@ -90,13 +90,13 @@ namespace FundooManager.Manager
         /// Method to delete lable
         /// </summary>
         /// <param name="id">lable id</param>
-        /// <returns>string message</returns>
-        public string DeleteLable(int id)
+        /// <returns>boolean result</returns>
+        public bool DeleteLable(int id)
         {
             try
             {
-                string message = this.lable.DeleteLable(id);
-                return message;
+                bool result = this.lable.DeleteLable(id);
+                return result;
             }
             catch (Exception ex)
             {
@@ -108,7 +108,7 @@ namespace FundooManager.Manager
         /// Method to get lable by id
         /// </summary>
         /// <param name="id">lable id</param>
-        /// <returns></returns>
+        /// <returns>lable details</returns>
         public IEnumerable<NotesModel> GetLableById(int id)
         {
             try

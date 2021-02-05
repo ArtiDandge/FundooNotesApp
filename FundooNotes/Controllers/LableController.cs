@@ -47,13 +47,13 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var message = this.lable.CreateLable(lable);
-                if (message.Equals("New Lable added Successfully !"))
+                var result = this.lable.CreateLable(lable);
+                if (result == true)
                 {
-                    return this.Ok(new ResponseModel<LableModel>() { Status = true, Message = message, Data = lable });
+                    return this.Ok(new ResponseModel<LableModel>() { Status = true, Message = "New Lable added Successfully !", Data = lable });
                 }
 
-                return this.BadRequest(new ResponseModel<LableModel>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<LableModel>() { Status = false, Message = "Failed to Add New Lable to Database" });
             }
             catch (Exception ex)
             {
@@ -96,13 +96,13 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var message = this.lable.UpdateLable(lable);
-                if (message.Equals("Lable updated Successfully !"))
+                var result = this.lable.UpdateLable(lable);
+                if (result == true)
                 {
-                    return this.Ok(new ResponseModel<LableModel>() { Status = true, Message = message, Data = lable });
+                    return this.Ok(new ResponseModel<LableModel>() { Status = true, Message = "Lable updated Successfully !", Data = lable });
                 }
 
-                return this.BadRequest(new ResponseModel<LableModel>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<LableModel>() { Status = false, Message = "Error While updating lable" });
             }
             catch (Exception ex)
             {
@@ -121,13 +121,13 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var message = this.lable.DeleteLable(id);
-                if (message.Equals("Lable Deleted Successfully !"))
+                var result = this.lable.DeleteLable(id);
+                if (result == true)
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Message = message, Data = id });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Message = "Lable Deleted Successfully !", Data = id });
                 }
 
-                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = message });
+                return this.BadRequest(new ResponseModel<int>() { Status = false, Message = "Unable to delete this Lable." });
             }
             catch (Exception ex)
             {
