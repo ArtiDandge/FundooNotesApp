@@ -132,8 +132,9 @@ namespace FundooNotes.Controllers
         /// Controller method for Reset password method invocation
         /// </summary>
         /// <param name="resetPassword"></param>
-        /// <returns></returns>
+        /// <returns>response data</returns>
         [HttpPut]
+        [Route("ResetPassword")]
         public IActionResult ResetPassword(ResetPasswordModel resetPassword)
         {
             try

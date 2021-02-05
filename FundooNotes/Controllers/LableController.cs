@@ -42,6 +42,7 @@ namespace FundooNotes.Controllers
         /// <param name="lable">lable name</param>
         /// <returns>API response</returns>
         [HttpPost]
+        [Route("CreateLable")]
         public IActionResult CreateLable(LableModel lable)
         {
             try
@@ -65,6 +66,7 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <returns>API Response</returns>
         [HttpGet]
+        [Route("RetrieveAllLables")]
         public IActionResult RetrieveAllLables()
         {
             try
@@ -89,6 +91,7 @@ namespace FundooNotes.Controllers
         /// <param name="lable">lable parameter</param>
         /// <returns>API response</returns>
         [HttpPut]
+        [Route("UpdateLable")]
         public IActionResult UpdateLable(LableModel lable)
         {
             try
@@ -113,6 +116,7 @@ namespace FundooNotes.Controllers
         /// <param name="id">lable id</param>
         /// <returns>API response</returns>
         [HttpDelete]
+        [Route("RemoveLable/{id}")]
         public IActionResult RemoveLable(int id)
         {
             try
@@ -131,6 +135,11 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Controller Method to get lable by id
+        /// </summary>
+        /// <param name="id">note id</param>
+        /// <returns>response data</returns>
         [HttpGet]
         [Route("GetLableById")]
         public IActionResult GetLableById(int id)
