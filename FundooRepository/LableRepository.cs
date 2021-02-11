@@ -158,7 +158,7 @@ namespace FundooRepository
                     var matchingLables = from newlable in userContext.Lables
                                          join user in userContext.Users on lable.LableId equals user.UserId
                                          join notes in userContext.FundooNotes on lable.NoteId equals notes.NotesId
-                                         where lable.Lable == lable.Lable
+                                         where lable.Lable == notes.Lable
                                          select notes.NotesId;
                     var lables = userContext.FundooNotes.Where(x => x.Lable == lable.Lable);
                     result = lables;

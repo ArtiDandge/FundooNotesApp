@@ -108,6 +108,17 @@ namespace FundooNotes
                     ValidateAudience = false,
                 };
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                    });
+            });
         }
 
         /// <summary>
@@ -140,6 +151,8 @@ namespace FundooNotes
 
             app.UseAuthorization();
 
+            app.UseCors("AllowAllHeaders");
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

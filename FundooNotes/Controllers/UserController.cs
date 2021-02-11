@@ -16,6 +16,7 @@ namespace FundooNotes.Controllers
     using FundooManager.Interfaces;
     using FundooModels;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
@@ -25,6 +26,7 @@ namespace FundooNotes.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
+    [EnableCors("AllowAllHeaders")]
     public class UserController : ControllerBase
     {
         /// <summary>
@@ -59,7 +61,7 @@ namespace FundooNotes.Controllers
                 _logger.LogInformation("new User added successfully");
                 if (result == true)
                 {
-                    return this.Ok(new ResponseModel<RegistrationModel>(){Status = true, Message = "New User Added Successfully !", Data = user });
+                    return this.Ok(new ResponseModel<RegistrationModel>(){Status = true, Message = "New User Added Successfully !" });
                 }
 
                 return this.BadRequest(new ResponseModel<RegistrationModel>(){ Status = false, Message = "Unable to Add New User" });
@@ -88,7 +90,7 @@ namespace FundooNotes.Controllers
                 {
                     _logger.LogInformation("User Logged Login Successfull!");
                     string tokenString = this.manager.GenerateToken(login.UserEmail);
-                    return this.Ok(new { Status = true, Message = message, Data = login,tokenString });
+                    return this.Ok(new { Status = true, Message = message, Data = login.UserEmail,tokenString });
                 }
  
                 return this.BadRequest(new ResponseModel<LoginModel>() { Status = false, Message = message });
@@ -116,7 +118,7 @@ namespace FundooNotes.Controllers
                 if (result == true)
                 {
                     _logger.LogInformation("Link has sent to given gmail to reset password");
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Link has sent to the given email address to reset the password", Data = email });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Link has sent to the given email address to reset the password" });
                 }
 
                 return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Unable to sent link to given email address. This Email doesn't exist in database." });
@@ -144,7 +146,7 @@ namespace FundooNotes.Controllers
                 if (result == true)
                 {
                     _logger.LogInformation("Password has reset successfully");
-                    return this.Ok(new ResponseModel<ResetPasswordModel>() { Status = true, Message = "Password Reset Successfull ! ", Data = resetPassword });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Password Reset Successfull ! ", Data = resetPassword.UserEmail });
                 }
                 
                 return this.BadRequest(new { Status = false, Message = "Failed to Reset Password. Given Email doesn't exist in database." });

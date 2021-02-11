@@ -9,7 +9,7 @@ namespace FundooMSMQ
     {
         public void SendMessage()
         {
-            var url = "Click on following link to reset your credentials for Fundoonotes App: https://localhost:44340/ResetPassword.html";
+            var url = "Click on following link to reset your credentials for Fundoonotes App: https://localhost:44340/api/User/ResetPassword";
             MessageQueue msmqQueue = new MessageQueue();
             if (MessageQueue.Exists(@".\Private$\MyQueue"))
             {

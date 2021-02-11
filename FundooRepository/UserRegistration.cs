@@ -118,12 +118,6 @@ namespace FundooRepository
                 var login = this.userContext.Users
                             .Where(x => x.UserEmail == email && x.UserPassword == encodedPassword).SingleOrDefault();
 
-                //Redis cache implemetation
-                ConnectionMultiplexer connection = ConnectionMultiplexer.Connect("127.0.0.1:6379");
-                IDatabase database = connection.GetDatabase();
-                database.StringSet(key: "Email", email);
-                database.StringGet("Email");
-
                 if (login != null)
                 {
                     message = "LOGIN SUCCESS";
